@@ -3,7 +3,7 @@
  * Created : 19 September 2018
  * Updated : 19 September 2018
  * PlayerShip.java 
- * Homework 1 CSC 133 
+ * Homework 2 CSC 133 
  */
 package com.mycompany.a2;
 
