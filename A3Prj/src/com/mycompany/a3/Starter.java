@@ -1,3 +1,10 @@
+/* 
+ * Oscar Esparza
+ * Starter.java 
+ * Created : 17 September 2018
+ * Updated : 3 October 2018
+ * Homework 2 CSC 133 
+ */
 package com.mycompany.a3;
 
 
@@ -51,9 +58,7 @@ public class Starter {
             current.show();
             return;
         }
-        Form hi = new Form("Hi World", BoxLayout.y());
-        hi.add(new Label("Hi World"));
-        hi.show();
+        new Game();
     }
 
     public void stop() {
