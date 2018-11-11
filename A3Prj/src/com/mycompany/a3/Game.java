@@ -14,7 +14,6 @@ import com.codename1.ui.Command;
 import com.codename1.ui.Container;
 import com.codename1.ui.Dialog;
 import com.codename1.ui.Form;
-import com.codename1.ui.Label;
 import com.codename1.ui.Toolbar;
 import com.codename1.ui.events.ActionEvent;
 import com.codename1.ui.layouts.BorderLayout;
@@ -43,6 +42,8 @@ import com.mycompany.a3.commands.TurnLeftCommand;
 import com.mycompany.a3.commands.TurnMissileLauncherLeftCommand;
 import com.mycompany.a3.commands.TurnMissileLauncherRightCommand;
 import com.mycompany.a3.commands.TurnRightCommand;
+import com.mycompany.a3.views.MapView;
+import com.mycompany.a3.views.PointsView;
 
 public class Game extends Form{
 	private GameWorld gw;	// observable
@@ -102,9 +103,6 @@ public class Game extends Form{
 		//left Container with the BoxLayout positioned on the west 
   		Container leftContainer = new Container();
   		leftContainer.setLayout(new BoxLayout(BoxLayout.Y_AXIS));
-  		
-  		//Label:
-  		Label commandsList = new Label ("Commands:");
   		
   		Button addAsteroid = new Button("Add Asteroid");
   		Button addNPS = new Button("Add NPS");

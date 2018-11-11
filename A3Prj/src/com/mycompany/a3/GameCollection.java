@@ -10,6 +10,9 @@ package com.mycompany.a3;
 
 import java.util.Vector;
 
+import com.mycompany.a3.interfaces.ICollection;
+import com.mycompany.a3.interfaces.IIterator;
+
 public class GameCollection implements ICollection{
 	private Vector<GameObject> gameObjects;
 	

@@ -6,7 +6,7 @@
  * Homework 2 CSC 133 
  */
 
-package com.mycompany.a3;
+package com.mycompany.a3.views;
 
 import java.util.Observable;
 import java.util.Observer;
@@ -17,6 +17,8 @@ import com.codename1.ui.Dialog;
 import com.codename1.ui.Display;
 import com.codename1.ui.Label;
 import com.codename1.ui.layouts.BoxLayout;
+import com.mycompany.a3.GameWorld;
+import com.mycompany.a3.interfaces.IGameWorld;
 
 public class PointsView extends Container implements Observer{
 	private Label pointsValueLabel;

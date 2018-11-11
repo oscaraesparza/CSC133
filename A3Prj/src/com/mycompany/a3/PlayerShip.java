@@ -8,6 +8,7 @@
 package com.mycompany.a3;
 
 import com.codename1.charts.util.ColorUtil;
+import com.mycompany.a3.interfaces.ISteerable;
 
 public class PlayerShip extends Ships implements ISteerable{
 	private MissleLauncher ms = getLauncher();

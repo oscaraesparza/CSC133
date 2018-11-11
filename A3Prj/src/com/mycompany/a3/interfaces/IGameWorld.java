@@ -6,7 +6,7 @@
  * Homework 2 CSC 133 
  */
 
-package com.mycompany.a3;
+package com.mycompany.a3.interfaces;
 
 public interface IGameWorld {
 	//specifications here for all GameWorld methods
@@ -15,4 +15,6 @@ public interface IGameWorld {
 	public int getMissileCount();
 	public String getSound();
 	public int getLives();
+	public int getWidth();
+	public int getHeight();
 }

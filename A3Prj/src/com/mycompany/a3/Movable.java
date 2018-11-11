@@ -8,6 +8,8 @@
 
 package com.mycompany.a3;
 
+import com.mycompany.a3.interfaces.IMovable;
+
 public class Movable extends GameObject implements IMovable {
 	private int speed;
 	private int direction;

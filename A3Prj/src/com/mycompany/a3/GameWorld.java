@@ -11,6 +11,10 @@ package com.mycompany.a3;
 import java.util.Observable;
 import java.util.Random;
 
+import com.mycompany.a3.interfaces.IGameWorld;
+import com.mycompany.a3.interfaces.IIterator;
+import com.mycompany.a3.interfaces.IMovable;
+
 public class GameWorld extends Observable implements IGameWorld{
 	Random rand = new Random();
 	/********************Objects******************************/
@@ -471,11 +475,6 @@ public class GameWorld extends Observable implements IGameWorld{
 	}
 
 	public int getLives() {return lives;}
-	
-	private boolean dead() {
-		if (lives == 0)
-			return true;
-		return false;
-	}
-
+	public int getWidth() {return WIDTH;}
+	public int getHeight() {return HEIGHT;}
 }

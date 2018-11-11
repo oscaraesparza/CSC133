@@ -9,6 +9,8 @@ package com.mycompany.a3;
 
 import java.util.Observable;
 
+import com.mycompany.a3.interfaces.IGameWorld;
+
 public class GameWorldProxy extends Observable implements IGameWorld {
 	private GameWorld gw;
 	public GameWorldProxy(GameWorld gw) {this.gw = gw;}
@@ -17,5 +19,7 @@ public class GameWorldProxy extends Observable implements IGameWorld {
 	public int getTime() {return gw.getTime();}
 	public int getMissileCount() {return gw.getMissileCount();}
 	public int getLives() {return gw.getLives();}
+	public int getWidth() {return gw.getWidth();}
+	public int getHeight() {return gw.getHeight();}
 
 }

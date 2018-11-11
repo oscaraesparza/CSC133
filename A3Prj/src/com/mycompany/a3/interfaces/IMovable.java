@@ -6,7 +6,7 @@
  * Homework 2 CSC 133 
  */
 
-package com.mycompany.a3;
+package com.mycompany.a3.interfaces;
 
 public interface IMovable {
 	public void move();
