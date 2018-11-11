@@ -19,6 +19,7 @@ import com.codename1.ui.events.ActionEvent;
 import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.ui.plaf.Border;
+import com.codename1.ui.util.UITimer;
 import com.mycompany.a3.commands.AACollisionCommand;
 import com.mycompany.a3.commands.AccelerateCommand;
 import com.mycompany.a3.commands.AddAsteroidCommand;
@@ -45,7 +46,7 @@ import com.mycompany.a3.commands.TurnRightCommand;
 import com.mycompany.a3.views.MapView;
 import com.mycompany.a3.views.PointsView;
 
-public class Game extends Form{
+public class Game extends Form implements Runnable{
 	private GameWorld gw;	// observable
 	private MapView mv;		// observer of GameWord
 	private PointsView pv;	// "                  "
@@ -55,9 +56,12 @@ public class Game extends Form{
 	private int leftGap = 1;
 	private int rightGap = 1;
 	
-	public Game() {
+	public Game() {		
+		UITimer timer = new UITimer(this);
+		timer.schedule(15, true, this);
+		
 		gw = new GameWorld();		// create "Observable"
-		mv = new MapView();			// create an "Observer" for the map
+		mv = new MapView(gw);			// create an "Observer" for the map
 		pv = new PointsView();	// create an "Observer" for the points
 		gw.addObserver(mv);			// register the map observer
 		gw.addObserver(pv);			// register the points observer
@@ -362,29 +366,20 @@ public class Game extends Form{
   		MapCommand myMap = new MapCommand(gw);
   		map.setCommand(myMap);
   		addKeyListener('t', myMap);
-  		 
+
   		
-  		
-  		
-  		
-		/*
-		Container titleContainer = new Container();
-		add(BorderLayout.NORTH, titleContainer);
-		titleContainer.add(new Label("Asteroid Game"));
-		titleContainer.getAllStyles().setBorder(Border.createLineBorder(4,ColorUtil.BLACK));
-		
-		
-		Container menuContainer = new Container();
-		add(BorderLayout.WEST, menuContainer);
-		menuContainer.add(new Button("Add Asteroid"));
-		*/
 		mv.getAllStyles().setBorder(Border.createLineBorder(8,ColorUtil.BLACK));
 		add(BorderLayout.CENTER, mv);
+		
 		// code here to create menus, create Command objects for each command,
 		// add commands to Command menu, create a control panel for the buttons,
 		// add buttons to the control panel, add commands to the buttons, and
 		// add control panel, MapView panel, and PointsView panel to the form
-		
 		this.show();
+	}
+
+	@Override
+	public void run() {
+		gw.tick();	
 	}
 }

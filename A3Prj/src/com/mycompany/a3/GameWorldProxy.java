@@ -9,7 +9,11 @@ package com.mycompany.a3;
 
 import java.util.Observable;
 
+import com.codename1.ui.Graphics;
+import com.codename1.ui.geom.Point;
 import com.mycompany.a3.interfaces.IGameWorld;
+import com.mycompany.a3.interfaces.IIterator;
+import com.mycompany.a3.views.MapView;
 
 public class GameWorldProxy extends Observable implements IGameWorld {
 	private GameWorld gw;
@@ -21,5 +25,5 @@ public class GameWorldProxy extends Observable implements IGameWorld {
 	public int getLives() {return gw.getLives();}
 	public int getWidth() {return gw.getWidth();}
 	public int getHeight() {return gw.getHeight();}
-
+	public GameCollection getCollection() {return this.gw.getCollection();}
 }

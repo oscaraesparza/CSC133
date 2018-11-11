@@ -11,9 +11,12 @@ package com.mycompany.a3;
 import java.util.Observable;
 import java.util.Random;
 
+import com.codename1.ui.Graphics;
+import com.codename1.ui.geom.Point;
 import com.mycompany.a3.interfaces.IGameWorld;
 import com.mycompany.a3.interfaces.IIterator;
 import com.mycompany.a3.interfaces.IMovable;
+import com.mycompany.a3.views.MapView;
 
 public class GameWorld extends Observable implements IGameWorld{
 	Random rand = new Random();
@@ -32,10 +35,10 @@ public class GameWorld extends Observable implements IGameWorld{
 	private int time = 0;
 	private boolean soundOn;
 	
-	public static final int WIDTH = 1024;
-	public static final int HEIGHT = 768;
+	public int WIDTH = 1024;
+	public int HEIGHT = 768;
 	private static final int MAXMISSILES = 10;
-	
+
 	// create a collection
 	public GameWorld() { go = new GameCollection();}
 	
@@ -477,4 +480,11 @@ public class GameWorld extends Observable implements IGameWorld{
 	public int getLives() {return lives;}
 	public int getWidth() {return WIDTH;}
 	public int getHeight() {return HEIGHT;}
+	public GameCollection getCollection(){
+		return go;
+	}
+
+	public void setHeight(int height2) {
+		HEIGHT = height2;
+	}
 }
