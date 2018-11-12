@@ -13,6 +13,7 @@ import java.util.Random;
 
 import com.codename1.ui.Graphics;
 import com.codename1.ui.geom.Point;
+import com.mycompany.a3.interfaces.ICollider;
 import com.mycompany.a3.interfaces.IGameWorld;
 import com.mycompany.a3.interfaces.IIterator;
 import com.mycompany.a3.interfaces.IMovable;
@@ -422,6 +423,7 @@ public class GameWorld extends Observable implements IGameWorld{
 			}
 		}
 		
+		// blink for spacestation
 		theElements = go.getIterator();
 		while(theElements.hasNext()) {					
 			if(theElements.getNext() instanceof SpaceStation) {	
@@ -430,9 +432,40 @@ public class GameWorld extends Observable implements IGameWorld{
 					if((time % mObj.getBlinkRate()) == 0) System.out.print("BLINK\n");
 			}
 		}
+		
+		//collision detection
+		GameCollection crashed = new GameCollection();
+		theElements = go.getIterator();
+		
+		while(theElements.hasNext()) {
+			// get object
+			ICollider currentObject = (ICollider)theElements.getNext();
+			// grab the secound list of objects
+			IIterator theElements2 = go.getIterator();
+			
+			while(theElements2.hasNext()) {
+				ICollider otherObject = (ICollider)theElements2.getNext();
+				// make sure the objects are not the same 
+				if(currentObject != otherObject) {
+					if(currentObject.collidesWith(otherObject)) {
+						currentObject.handleCollision(otherObject);
+					}
+				}
+			}
+		}
+		
+		// now lets get ride of crash objects
+		theElements = go.getIterator();
+		while(theElements.hasNext()) {
+			GameObject obj = theElements.getNext();
+			if(obj.getCollision() == true)
+				go.remove(obj);
+		}
+		
 		this.setChanged();
 		this.notifyObservers(new GameWorldProxy(this));
 	}
+	
 	// display objects in the collections
 	public void map() {
 		IIterator theElements = go.getIterator();

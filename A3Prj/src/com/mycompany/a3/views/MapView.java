@@ -30,15 +30,13 @@ public class MapView extends Container implements Observer{
 	
 	public MapView(GameWorld gamePainter) {
 		this.getAllStyles().setBgTransparency(255);
-		this.getAllStyles().setBgColor(ColorUtil.BLACK);
+		this.getAllStyles().setBgColor(ColorUtil.WHITE);
 		this.getAllStyles().setBorder(Border.createLineBorder(3, ColorUtil.MAGENTA));
 		gwProxy = gamePainter;
 	}
 	public void update(Observable o, Object arg) {
 		if(o instanceof IGameWorld) {
 			gwProxy = (GameWorld) o;
-			//setWidth((gwProxy.getWidth()) * 2);
-	        //setHeight(gwProxy.getHeight());
 			repaint();
 		}
 	}
@@ -60,21 +58,14 @@ public class MapView extends Container implements Observer{
 				int bottomWall = this.getY() + this.getHeight();
 				int topWall = this.getY();
 				if(x <= leftWall || x >= rightWall) {
-					if(x <= 0) {
-						((GameObject)currentObject).setLocation(this.getWidth(), y);
-					}
-					if(x>=rightWall) {
-						((GameObject)currentObject).setLocation(0, y); // goes behind buttons. maybe fix
-					}
+					if(x <= 0) ((GameObject)currentObject).setLocation(this.getWidth(), y);
+					if(x >= rightWall) ((GameObject)currentObject).setLocation(0, y); // goes behind buttons. maybe fix
 				}
 				
-				if(y<=topWall || y>=bottomWall) {
-					if(y<=0) {
-						((GameObject)currentObject).setLocation(x, bottomWall);
-					}
-					if((y+this.getY())>=bottomWall) {
-						((GameObject)currentObject).setLocation(x, 0);
-					}
+				if(y <= topWall || y >= bottomWall) {
+					if (y <= 0) ((GameObject)currentObject).setLocation(x, bottomWall);
+					if((y + this.getY()) >= bottomWall) ((GameObject)currentObject).setLocation(x, 0);
+					
 				}
 			}
 			// draws Objects
