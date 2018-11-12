@@ -54,5 +54,7 @@ public class Asteroid extends Movable implements IDrawable, ICollider{
 	public void handleCollision(ICollider otherObject) {	
 		if(otherObject instanceof Asteroid)
 			this.setCollision(true);
+		if(otherObject instanceof NonePlayerShip)
+			this.setCollision(true);
 	}
 }

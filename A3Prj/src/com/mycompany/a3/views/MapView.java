@@ -30,7 +30,7 @@ public class MapView extends Container implements Observer{
 	
 	public MapView(GameWorld gamePainter) {
 		this.getAllStyles().setBgTransparency(255);
-		this.getAllStyles().setBgColor(ColorUtil.WHITE);
+		this.getAllStyles().setBgColor(ColorUtil.BLACK);
 		this.getAllStyles().setBorder(Border.createLineBorder(3, ColorUtil.MAGENTA));
 		gwProxy = gamePainter;
 	}

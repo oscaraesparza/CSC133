@@ -1,9 +1,9 @@
 /* 
  * Oscar Esparza
  * Created : 17 September 2018
- * Updated : 9 October 2018
+ * Updated : 11 Novemebr 2018
  * GameWorld.java 
- * Homework 2 CSC 133 
+ * Homework 3 CSC 133 
  */
 
 package com.mycompany.a3;
@@ -434,7 +434,6 @@ public class GameWorld extends Observable implements IGameWorld{
 		}
 		
 		//collision detection
-		GameCollection crashed = new GameCollection();
 		theElements = go.getIterator();
 		
 		while(theElements.hasNext()) {
