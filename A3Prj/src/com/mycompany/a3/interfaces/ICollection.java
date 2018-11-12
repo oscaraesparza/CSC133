@@ -8,7 +8,7 @@
 
 package com.mycompany.a3.interfaces;
 
-import com.mycompany.a3.GameObject;
+import com.mycompany.a3.objects.GameObject;
 
 public interface ICollection {
 	public void add(GameObject o);

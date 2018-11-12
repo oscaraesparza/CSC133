@@ -17,6 +17,14 @@ import com.mycompany.a3.interfaces.ICollider;
 import com.mycompany.a3.interfaces.IGameWorld;
 import com.mycompany.a3.interfaces.IIterator;
 import com.mycompany.a3.interfaces.IMovable;
+import com.mycompany.a3.objects.Asteroid;
+import com.mycompany.a3.objects.GameObject;
+import com.mycompany.a3.objects.Missile;
+import com.mycompany.a3.objects.MissleLauncher;
+import com.mycompany.a3.objects.NonePlayerShip;
+import com.mycompany.a3.objects.PlayerShip;
+import com.mycompany.a3.objects.Ships;
+import com.mycompany.a3.objects.SpaceStation;
 import com.mycompany.a3.views.MapView;
 
 public class GameWorld extends Observable implements IGameWorld{
@@ -45,7 +53,7 @@ public class GameWorld extends Observable implements IGameWorld{
 	
 	public void addAsteroid() {
 		asteroid = new Asteroid();
-		asteroid.setSize(rand.nextInt(24) + 6); 	// 6 - 30
+		asteroid.setSize((rand.nextInt(24) + 6) * 2); 	// 6 - 30
 		asteroid.setSpeed(rand.nextInt(10));		// 0 - 10
 		asteroid.setDirection(rand.nextInt(359));	// 0 - 359
 		asteroid.setColor(255, 0, 0);				// red
@@ -59,11 +67,11 @@ public class GameWorld extends Observable implements IGameWorld{
 	public void addNonePlayerShip() {
 		int direction = rand.nextInt(359);			// 0 - 359
 		nps = new NonePlayerShip();
-		nps.setSize((rand.nextInt(1) + 1) * 10); 	// 10 or 20
+		nps.setSize(((rand.nextInt(1) + 1) * 10) * 2); 	// 10 or 20
 		nps.setMissleCount(MAXMISSILES);			// 10
 		nps.setSpeed(rand.nextInt(10));				// 0 - 10
 		nps.setDirection(direction);				// 0 - 359
-		nps.setColor(255, 255, 0);					// yellow
+		nps.setColor(201, 154, 0);					//  Dark yellow
 		nps.setLocation(rand.nextInt(WIDTH), rand.nextInt(HEIGHT));
 		
 		launcher = nps.getLauncher();
@@ -82,6 +90,7 @@ public class GameWorld extends Observable implements IGameWorld{
 		station.setLocation(rand.nextInt(WIDTH), rand.nextInt(HEIGHT));
 		station.setColor(0, 255, 0);			// green
 		station.setID();
+		station.setSize(20);
 		station.setBlinkRate(rand.nextInt(4));	// 0 - 4
 		go.add(station);
 		this.setChanged();
@@ -104,6 +113,7 @@ public class GameWorld extends Observable implements IGameWorld{
 		ps.setDirection(0);							// points north
 		ps.setColor(0, 0, 0);						// black
 		ps.setLocation((WIDTH / 2), (HEIGHT / 2));	// center of map
+		ps.setSize(15);
 
 		psLauncher = ps.getLauncher();
 		psLauncher.setSpeed(0);	// 0 - 10

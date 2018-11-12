@@ -1,12 +1,11 @@
 /* 
  * Oscar Esparza
- * Created : 18 September 2018
- * Updated : 11 Novemeber 2018
- * NonePlayerShip.java 
- * Homework 3 CSC 133 
+ * Created : 21 September 2018
+ * Updated : 10 October 2018
+ * Missle.java 
+ * Homework 2 CSC 133 
  */
-
-package com.mycompany.a3;
+package com.mycompany.a3.objects;
 
 import com.codename1.charts.util.ColorUtil;
 import com.codename1.ui.Graphics;
@@ -14,14 +13,29 @@ import com.codename1.ui.geom.Point;
 import com.mycompany.a3.interfaces.ICollider;
 import com.mycompany.a3.interfaces.IDrawable;
 
-public class NonePlayerShip extends Ships implements IDrawable, ICollider{
-	private MissleLauncher ms = getLauncher();
+public class Missile extends Movable implements IDrawable, ICollider{
+	private int fuel;
+	private Boolean ps = false;
+	
+	public void setFuel(int fuel) {this.fuel = fuel;}
+	
+	public int getFuelLevel() {return fuel;}
+	
+	public Boolean useFuel() { 
+		fuel--;
+		if(fuel <= 0) return true;
+		else return false;
+		}
+	public void setFlag(Boolean p) {this.ps = p;}	//to figure out if it is a ps missile
+	
+	public Boolean returnFlag(){return this.ps;}	//true if from ps
+	
 	public String toString() {
-		return ("None Player Ship: Location = " + Math.round(getXCoordinate()) + ", " + Math.round(getYCoordinate()) +
+		return ("Missile: Loc = " + Math.round(getXCoordinate()) + ", " + Math.round(getYCoordinate()) + 
 				", color = [" + ColorUtil.red(getColor()) + ", " + ColorUtil.green(getColor()) + ", " + ColorUtil.blue(getColor()) + "]" +
 				", speed = " + getSpeed() +
-				", direction = " + getDirection() + 
-				", size = " + getSize());
+				", dir = " + getDirection() + 
+				", fuel level = " + getFuelLevel());
 	}
 	
 	public void draw(Graphics g, Point pCmpRelPrnt) {
@@ -29,10 +43,9 @@ public class NonePlayerShip extends Ships implements IDrawable, ICollider{
 		int x = (int)(pCmpRelPrnt.getX() + this.getXCoordinate());
 		int y = (int)(pCmpRelPrnt.getY() + this.getYCoordinate());
 		g.setColor(getColor());
-		g.drawRect(x, y, getSize(), getSize());
+		g.drawRect(x, y, getSize(), getSize() / 2);
 	}
-
-	@Override
+	
 	public Boolean collidesWith(ICollider otherObject) {
 		Boolean result = false; 
 		int thisCenterX = (int)(this.getXCoordinate() + (this.getSize()/2));
@@ -54,11 +67,7 @@ public class NonePlayerShip extends Ships implements IDrawable, ICollider{
 		return result;
 	}
 
-	@Override
-	public void handleCollision(ICollider otherObject) {
-		if(otherObject instanceof Asteroid)
-			this.setCollision(true);
-		if(otherObject instanceof NonePlayerShip)
-			this.setCollision(true);
+	public void handleCollision(ICollider otherObject) {	
+		System.out.println("You shouldn't see this");
 	}
 }

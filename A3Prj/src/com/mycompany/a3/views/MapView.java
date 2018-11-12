@@ -17,12 +17,12 @@ import com.codename1.ui.Graphics;
 import com.codename1.ui.geom.Point;
 import com.codename1.ui.plaf.Border;
 import com.mycompany.a3.GameCollection;
-import com.mycompany.a3.GameObject;
 import com.mycompany.a3.GameWorld;
 import com.mycompany.a3.interfaces.IDrawable;
 import com.mycompany.a3.interfaces.IGameWorld;
 import com.mycompany.a3.interfaces.IIterator;
 import com.mycompany.a3.interfaces.IMovable;
+import com.mycompany.a3.objects.GameObject;
 
 public class MapView extends Container implements Observer{
 	private GameWorld gwProxy;
@@ -30,7 +30,7 @@ public class MapView extends Container implements Observer{
 	
 	public MapView(GameWorld gamePainter) {
 		this.getAllStyles().setBgTransparency(255);
-		this.getAllStyles().setBgColor(ColorUtil.BLACK);
+		this.getAllStyles().setBgColor(ColorUtil.WHITE);
 		this.getAllStyles().setBorder(Border.createLineBorder(3, ColorUtil.MAGENTA));
 		gwProxy = gamePainter;
 	}

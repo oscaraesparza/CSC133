@@ -12,6 +12,7 @@ import java.util.Vector;
 
 import com.mycompany.a3.interfaces.ICollection;
 import com.mycompany.a3.interfaces.IIterator;
+import com.mycompany.a3.objects.GameObject;
 
 public class GameCollection implements ICollection{
 	private Vector<GameObject> gameObjects;

@@ -6,6 +6,6 @@
  * Homework 2 CSC 133 
  */
 
-package com.mycompany.a3;
+package com.mycompany.a3.objects;
 
 public class MissleLauncher extends Movable{}

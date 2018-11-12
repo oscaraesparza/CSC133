@@ -1,12 +1,11 @@
 /* 
  * Oscar Esparza
- * Created : 10 September 2018
+ * Created : 18 September 2018
  * Updated : 11 November 2018
- * SpaceStation.java 
+ * Asteroid.java 
  * Homework 3 CSC 133 
  */
-
-package com.mycompany.a3; 
+package com.mycompany.a3.objects;
 
 import com.codename1.charts.util.ColorUtil;
 import com.codename1.ui.Graphics;
@@ -14,28 +13,23 @@ import com.codename1.ui.geom.Point;
 import com.mycompany.a3.interfaces.ICollider;
 import com.mycompany.a3.interfaces.IDrawable;
 
-public class SpaceStation extends Fixed implements IDrawable, ICollider{
-	private int blinkRate;
-	
-	public void setBlinkRate(int rate) {this.blinkRate = rate;}
-	
-	public int getBlinkRate() {return blinkRate;}
-	
+public class Asteroid extends Movable implements IDrawable, ICollider{
 	public String toString() {
-		return ("SpaceStation: Location = " + Math.round(getXCoordinate()) + ", " + Math.round(getYCoordinate()) + 
-				", color = [" + ColorUtil.red(getColor()) + ", " + ColorUtil.green(getColor()) + ", " + ColorUtil.blue(getColor()) + "]" + 
-				", blinkrate = [" + getBlinkRate() + "]");
-				//", id = " + getID());
+		return ("Asteroid: Loc = " + Math.round(getXCoordinate()) + ", " + Math.round(getYCoordinate()) + 
+				", color = [" + ColorUtil.red(getColor()) + ", " + ColorUtil.green(getColor()) + ", " + ColorUtil.blue(getColor()) + "]" +
+				", speed = " + getSpeed() +
+				", direction = " + getDirection() + 
+				", size = " + getSize());
 	}
-	
+
 	public void draw(Graphics g, Point pCmpRelPrnt) {
 		// Turn (x, y) from float to int
 		int x = (int)(pCmpRelPrnt.getX() + this.getXCoordinate());
 		int y = (int)(pCmpRelPrnt.getY() + this.getYCoordinate());
 		g.setColor(getColor());
-		g.drawRect(x, y, getSize(), getSize());
+		g.drawArc(x, y, getSize(), getSize(), 0, 360);	
 	}
-	
+
 	public Boolean collidesWith(ICollider otherObject) {
 		Boolean result = false; 
 		int thisCenterX = (int)(this.getXCoordinate() + (this.getSize()/2));
@@ -58,6 +52,9 @@ public class SpaceStation extends Fixed implements IDrawable, ICollider{
 	}
 
 	public void handleCollision(ICollider otherObject) {	
-		System.out.println("You shouldn't see this");
+		if(otherObject instanceof Asteroid)
+			this.setCollision(true);
+		if(otherObject instanceof NonePlayerShip)
+			this.setCollision(true);
 	}
 }

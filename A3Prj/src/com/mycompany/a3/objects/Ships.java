@@ -6,7 +6,7 @@
  * Homework 2 CSC 133 
  */
 
-package com.mycompany.a3;
+package com.mycompany.a3.objects;
 
 public class Ships extends Movable {
 	private int missleCount; 

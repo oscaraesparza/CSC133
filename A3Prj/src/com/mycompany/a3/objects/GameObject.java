@@ -5,7 +5,7 @@
  * GameObject.java 
  * Homework 2 CSC 133 
  */
-package com.mycompany.a3;
+package com.mycompany.a3.objects;
 
 import com.codename1.charts.util.ColorUtil;
 import com.codename1.ui.geom.Point2D;
