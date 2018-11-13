@@ -113,7 +113,7 @@ public class GameWorld extends Observable implements IGameWorld{
 		ps.setDirection(0);							// points north
 		ps.setColor(0, 0, 0);						// black
 		ps.setLocation((WIDTH / 2), (HEIGHT / 2));	// center of map
-		ps.setSize(15);
+		ps.setSize(50);
 
 		psLauncher = ps.getLauncher();
 		psLauncher.setSpeed(0);	// 0 - 10
@@ -121,6 +121,7 @@ public class GameWorld extends Observable implements IGameWorld{
 		psLauncher.setDirection(rand.nextInt(359));	// 0 - 359
 		psLauncher.setColor(50, 50, 50);		// grey
 		ps.setMissleLaucher(psLauncher);
+		go.add(psLauncher);
 		go.add(ps);
 		this.setChanged();
 		this.notifyObservers(new GameWorldProxy(this));
@@ -210,7 +211,7 @@ public class GameWorld extends Observable implements IGameWorld{
 			launcher = ps.getLauncher();
 			missile.setDirection(launcher.getDirection()); // since a ps launcher could have diff direction than ps
 			missile.setSpeed(ps.getSpeed() + 1);
-			missile.setLocation(ps.getXCoordinate(), ps.getYCoordinate()); //missile location is same as ps
+			missile.setLocation(launcher.getXCoordinate(), launcher.getYCoordinate()); //missile location is same as ps
 			missile.setColor(50,50,50); // same as launcher (gray)
 			missile.setFuel(10);
 			missile.setFlag(true); 		// missile is from ps
@@ -231,7 +232,7 @@ public class GameWorld extends Observable implements IGameWorld{
 			missile.setSpeed(nps.getSpeed() + 1);
 			missile.setLocation(nps.getXCoordinate(), nps.getYCoordinate()); //missile location is same as ps missile launcher
 			missile.setColor(50,50,50); // same as launcher (gray)
-			missile.setFuel(10);	
+			missile.setFuel(10000);	// fix this
 			go.add(missile);
 			nps.useMissile(1);
 			this.setChanged();
@@ -418,10 +419,15 @@ public class GameWorld extends Observable implements IGameWorld{
 			if(theElements.getNext() instanceof IMovable) {	
 				IMovable mObj = (IMovable)theElements.get();
 				mObj.move();
+				// missle launcher needs to follow player ship
+				if (mObj instanceof MissleLauncher) {
+					((MissleLauncher) mObj).setLocation(ps.getXCoordinate(), ps.getYCoordinate());
+				}
 			}
 		}
 		// need to restart iterator
 		// will fail if you fire 2 missiles at the same time ... sometimes
+		/*
 		theElements = go.getIterator();
 		while(theElements.hasNext()) {					
 			if(theElements.getNext() instanceof Missile) {	
@@ -431,7 +437,7 @@ public class GameWorld extends Observable implements IGameWorld{
 					go.remove(mObj); 	// removes the missile
 				}
 			}
-		}
+		} */
 		
 		// blink for spacestation
 		theElements = go.getIterator();

@@ -53,8 +53,8 @@ public class MapView extends Container implements Observer{
 			if(currentObject instanceof IMovable) {		
 				int x = (int) ((GameObject)currentObject).getXCoordinate();
 				int y = (int) ((GameObject)currentObject).getYCoordinate();
-				int rightWall = this.getWidth() + this.getX();
-				int leftWall = this.getX();
+				int rightWall = this.getWidth() ;//+ this.getX();
+				int leftWall = this.getWidth() - this.getX();
 				int bottomWall = this.getY() + this.getHeight();
 				int topWall = this.getY();
 				if(x <= leftWall || x >= rightWall) {

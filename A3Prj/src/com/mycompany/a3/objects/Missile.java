@@ -26,6 +26,7 @@ public class Missile extends Movable implements IDrawable, ICollider{
 		if(fuel <= 0) return true;
 		else return false;
 		}
+	
 	public void setFlag(Boolean p) {this.ps = p;}	//to figure out if it is a ps missile
 	
 	public Boolean returnFlag(){return this.ps;}	//true if from ps
@@ -68,6 +69,13 @@ public class Missile extends Movable implements IDrawable, ICollider{
 	}
 
 	public void handleCollision(ICollider otherObject) {	
-		System.out.println("You shouldn't see this");
+		if(otherObject instanceof Asteroid)
+			this.setCollision(true);
+		if(otherObject instanceof NonePlayerShip)
+			this.setCollision(true);
+		if(otherObject instanceof Missile)
+			this.setCollision(true);
+		if(otherObject instanceof PlayerShip)
+			this.setCollision(true);
 	}
 }

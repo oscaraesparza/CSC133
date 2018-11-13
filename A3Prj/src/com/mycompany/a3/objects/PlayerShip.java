@@ -39,9 +39,11 @@ public class PlayerShip extends Ships implements ISteerable, IDrawable, ICollide
 		Point bRight = new Point(pCmpRelPrnt.getX() + x + (this.getSize()/2), pCmpRelPrnt.getY() + y  - (this.getSize() / 2));
 		
 		g.setColor(getColor());
-		int [] xPoints = new int [] {(int) top.getX(), (int) bLeft.getX(), (int)bRight.getX()} ; 
+		/*int [] xPoints = new int [] {(int) top.getX(), (int) bLeft.getX(), (int)bRight.getX()} ; 
 	    int [] yPoints = new int [] {(int) top.getY(), (int) bLeft.getY(), (int)bRight.getY()} ; 
-		g.drawPolygon(xPoints, yPoints, 3);
+		g.drawPolygon(xPoints, yPoints, 3);*/
+		g.drawRect(x, y, getSize(), getSize());
+		g.fillRect(x, y, getSize(), getSize());
 	}
 
 	@Override
@@ -71,6 +73,8 @@ public class PlayerShip extends Ships implements ISteerable, IDrawable, ICollide
 		if(otherObject instanceof Asteroid)
 			this.setCollision(true);
 		if(otherObject instanceof NonePlayerShip)
+			this.setCollision(true);
+		if(otherObject instanceof Missile)
 			this.setCollision(true);
 	}
 }

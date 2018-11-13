@@ -58,7 +58,7 @@ public class Game extends Form implements Runnable{
 	
 	public Game() {		
 		UITimer timer = new UITimer(this);
-		timer.schedule(15, true, this);
+		timer.schedule(20, true, this);
 		
 		gw = new GameWorld();		// create "Observable"
 		mv = new MapView(gw);			// create an "Observer" for the map
