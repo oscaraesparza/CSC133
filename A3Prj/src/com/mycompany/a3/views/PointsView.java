@@ -18,6 +18,7 @@ import com.codename1.ui.Display;
 import com.codename1.ui.Label;
 import com.codename1.ui.layouts.BoxLayout;
 import com.mycompany.a3.GameWorld;
+import com.mycompany.a3.SoundEffect;
 import com.mycompany.a3.interfaces.IGameWorld;
 
 public class PointsView extends Container implements Observer{
@@ -26,6 +27,7 @@ public class PointsView extends Container implements Observer{
 	private Label soundLabel;
 	private Label missileNumberLabel;
 	private Label livesNumberLabel;
+	SoundEffect death = new SoundEffect("dead.mp3");
 	
 	public PointsView()
 	{
@@ -95,6 +97,7 @@ public class PointsView extends Container implements Observer{
 		// Check if dead ....almost forgot to do this..
 		// ... its due in an hour and I am testing stuff just in case ....
 		if(lives <= 0) {
+			death.play();
 			Boolean option = Dialog.show("Game Over", "You now floating in oblivion", "This is nice..", "This Sucks");
 			if(option) Display.getInstance().exitApplication();
 			else Display.getInstance().exitApplication();

@@ -74,8 +74,8 @@ public class PlayerShip extends Ships implements ISteerable, IDrawable, ICollide
 			this.setCollision(true);
 		if(otherObject instanceof NonePlayerShip)
 			this.setCollision(true);
-		if(otherObject instanceof Missile)
-			this.setCollision(true);
+		//if(otherObject instanceof Missile)
+			//this.setCollision(true);
 		if(otherObject instanceof PlayerShip)
 			this.setCollision(true);
 	}

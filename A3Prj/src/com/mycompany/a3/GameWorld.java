@@ -43,6 +43,7 @@ public class GameWorld extends Observable implements IGameWorld{
 	public int WIDTH = 0;
 	public int HEIGHT = 0;
 	private static final int MAXMISSILES = 10;
+	// Sound
 	BackgroundSound backgroundSound = new BackgroundSound("backgroud.wav");
 	SoundEffect shots = new SoundEffect("Missile.mp3");
 
