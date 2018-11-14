@@ -44,6 +44,7 @@ public class GameWorld extends Observable implements IGameWorld{
 	public int HEIGHT = 0;
 	private static final int MAXMISSILES = 10;
 	BackgroundSound backgroundSound = new BackgroundSound("backgroud.wav");
+	SoundEffect shots = new SoundEffect("Missile.mp3");
 
 	// create a collection
 	public GameWorld() { go = new GameCollection();}
@@ -204,10 +205,11 @@ public class GameWorld extends Observable implements IGameWorld{
 	
 	public void fireMissile() {
 		if((ps != null) && (ps.getMissleCount() > 0)) { 
+			shots.play();
 			missile = new Missile();
 			launcher = ps.getLauncher();
 			missile.setDirection(launcher.getDirection()); // since a ps launcher could have diff direction than ps
-			missile.setSpeed(ps.getSpeed());
+			missile.setSpeed(10);
 			// prevent own missile from hitting the ship
 			missile.setLocation(launcher.getXCoordinate() + 3, launcher.getYCoordinate() + 3); 
 			missile.setColor(50,50,50); // same as launcher (gray)
@@ -474,6 +476,7 @@ public class GameWorld extends Observable implements IGameWorld{
 			if(obj instanceof PlayerShip) {
 				if(obj.getCollision() == true) {
 					go.remove(obj);
+					lives--;
 					this.setChanged();
 					this.notifyObservers(new GameWorldProxy(this));
 					return;
