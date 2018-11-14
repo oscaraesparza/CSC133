@@ -96,9 +96,8 @@ public class Game extends Form implements Runnable{
 				 new ClosingApp();
 			}
 		};
+		
 		myToolbar.addCommandToSideMenu(sideMenuQuit);
-		
-		
 		
 		setLayout(new BorderLayout());
 		this.setTitle("Asteroid Game");
@@ -163,7 +162,6 @@ public class Game extends Form implements Runnable{
   		addSS.setCommand(myAddSS);
   		addKeyListener('b', myAddSS);
   		
-  		
   		addPS.getAllStyles().setBgTransparency(255);
   		addPS.getUnselectedStyle().setBgColor(ColorUtil.rgb(67, 97, 246));
   		addPS.getAllStyles().setFgColor(ColorUtil.rgb(255,255,255));
@@ -172,7 +170,6 @@ public class Game extends Form implements Runnable{
   		AddPSCommand myAddPS = new AddPSCommand(gw);
   		addPS.setCommand(myAddPS);
   		addKeyListener('s', myAddPS);
-  		
  
   		accelerate.getAllStyles().setBgTransparency(255);
   		accelerate.getUnselectedStyle().setBgColor(ColorUtil.rgb(67, 97, 246));
@@ -183,7 +180,6 @@ public class Game extends Form implements Runnable{
   		accelerate.setCommand(myAccelerate);
   		addKeyListener('i', myAccelerate);	
   		addKeyListener(-91, myAccelerate);	//UP ARROW
-  		
   	
   		decelerate.getAllStyles().setBgTransparency(255);
   		decelerate.getUnselectedStyle().setBgColor(ColorUtil.rgb(67, 97, 246));
@@ -226,7 +222,6 @@ public class Game extends Form implements Runnable{
   		addKeyListener(44, myTurnMSL);
   		
   		// KB DONT WORK
-  	
   		turnMSR.getAllStyles().setBgTransparency(255);
   		turnMSR.getUnselectedStyle().setBgColor(ColorUtil.rgb(67, 97, 246));
   		turnMSR.getAllStyles().setFgColor(ColorUtil.rgb(255,255,255));  //flashes white on click
@@ -236,7 +231,6 @@ public class Game extends Form implements Runnable{
   		turnMSR.setCommand(myTurnMSR);
   		addKeyListener(46, myTurnMSR);
   		
-  	
   		fireMissile.getAllStyles().setBgTransparency(255);
   		fireMissile.getUnselectedStyle().setBgColor(ColorUtil.rgb(67, 97, 246));
   		fireMissile.getAllStyles().setFgColor(ColorUtil.rgb(255,255,255));  //flashes white on click
@@ -247,7 +241,6 @@ public class Game extends Form implements Runnable{
   		addKeyListener('f', myFireMissile);
   		addKeyListener(-90, myFireMissile);	// spacebar
   		
-  		
   		LaunchMissile.getAllStyles().setBgTransparency(255);
   		LaunchMissile.getUnselectedStyle().setBgColor(ColorUtil.rgb(67, 97, 246));
   		LaunchMissile.getAllStyles().setFgColor(ColorUtil.rgb(255,255,255));  //flashes white on click
@@ -257,7 +250,6 @@ public class Game extends Form implements Runnable{
   		LaunchMissile.setCommand(myLaunchMissile);
   		addKeyListener('L', myFireMissile);
   		
-  	
   		Jump.getAllStyles().setBgTransparency(255);
   		Jump.getUnselectedStyle().setBgColor(ColorUtil.rgb(67, 97, 246));
   		Jump.getAllStyles().setFgColor(ColorUtil.rgb(255,255,255));  //flashes white on click
@@ -267,7 +259,6 @@ public class Game extends Form implements Runnable{
   		Jump.setCommand(myJump);
   		addKeyListener('j', myJump);
   		
-  
   		Reload.getAllStyles().setBgTransparency(255);
   		Reload.getUnselectedStyle().setBgColor(ColorUtil.rgb(67, 97, 246));
   		Reload.getAllStyles().setFgColor(ColorUtil.rgb(255,255,255));  //flashes white on click
@@ -276,7 +267,6 @@ public class Game extends Form implements Runnable{
   		ReloadCommand myReload = new ReloadCommand(gw);
   		Reload.setCommand(myReload);
   		addKeyListener('n', myReload);
-  		
   		
   		KillAsteroid.getAllStyles().setBgTransparency(255);
   		KillAsteroid.getUnselectedStyle().setBgColor(ColorUtil.rgb(67, 97, 246));
@@ -287,7 +277,6 @@ public class Game extends Form implements Runnable{
   		KillAsteroid.setCommand(myKillAsteroid);
   		addKeyListener('k', myKillAsteroid);
   		
-  		
   		KillNPS.getAllStyles().setBgTransparency(255);
   		KillNPS.getUnselectedStyle().setBgColor(ColorUtil.rgb(67, 97, 246));
   		KillNPS.getAllStyles().setFgColor(ColorUtil.rgb(255,255,255));  //flashes white on click
@@ -296,7 +285,6 @@ public class Game extends Form implements Runnable{
   		KillNPSCommand myKillNPS = new KillNPSCommand(gw);
   		KillNPS.setCommand(myKillNPS);
   		addKeyListener('e', myKillNPS);
-  		
   		
   		KillPS.getAllStyles().setBgTransparency(255);
   		KillPS.getUnselectedStyle().setBgColor(ColorUtil.rgb(67, 97, 246));
@@ -307,7 +295,6 @@ public class Game extends Form implements Runnable{
   		KillPS.setCommand(myKillPS);
   		addKeyListener('E', myKillPS);
   		
-  		
   		CrashAsteroid.getAllStyles().setBgTransparency(255);
   		CrashAsteroid.getUnselectedStyle().setBgColor(ColorUtil.rgb(67, 97, 246));
   		CrashAsteroid.getAllStyles().setFgColor(ColorUtil.rgb(255,255,255));  //flashes white on click
@@ -316,7 +303,6 @@ public class Game extends Form implements Runnable{
   		CrashAsteroidCommand myCrashAsteroid = new CrashAsteroidCommand(gw);
   		CrashAsteroid.setCommand(myCrashAsteroid);
   		addKeyListener('c', myCrashAsteroid);
-  		
   		
   		CrashNPS.getAllStyles().setBgTransparency(255);
   		CrashNPS.getUnselectedStyle().setBgColor(ColorUtil.rgb(67, 97, 246));
@@ -327,7 +313,6 @@ public class Game extends Form implements Runnable{
   		CrashNPS.setCommand(myCrashNPS);
   		addKeyListener('h', myCrashNPS);
   		
-  		
   		AACollision.getAllStyles().setBgTransparency(255);
   		AACollision.getUnselectedStyle().setBgColor(ColorUtil.rgb(67, 97, 246));
   		AACollision.getAllStyles().setFgColor(ColorUtil.rgb(255,255,255));  //flashes white on click
@@ -336,7 +321,6 @@ public class Game extends Form implements Runnable{
   		AACollisionCommand myAACollision = new AACollisionCommand(gw);
   		AACollision.setCommand(myAACollision);
   		addKeyListener('x', myAACollision);
-  		
   		
   		NPSAsteroidCollision.getAllStyles().setBgTransparency(255);
   		NPSAsteroidCollision.getUnselectedStyle().setBgColor(ColorUtil.rgb(67, 97, 246));
@@ -347,7 +331,6 @@ public class Game extends Form implements Runnable{
   		NPSAsteroidCollision.setCommand(myNPSAsteroidCollision);
   		addKeyListener('I', myNPSAsteroidCollision);
   		
-  		
   		tick.getAllStyles().setBgTransparency(255);
   		tick.getUnselectedStyle().setBgColor(ColorUtil.rgb(67, 97, 246));
   		tick.getAllStyles().setFgColor(ColorUtil.rgb(255,255,255));  //flashes white on click
@@ -355,9 +338,8 @@ public class Game extends Form implements Runnable{
   		leftContainer.add(tick);
   		TickCommand mytick = new TickCommand(gw);
   		tick.setCommand(mytick);
-  		addKeyListener('t', mytick);
-  		
-  		
+  		addKeyListener('t', mytick);	
+  	
   		map.getAllStyles().setBgTransparency(255);
   		map.getUnselectedStyle().setBgColor(ColorUtil.rgb(67, 97, 246));
   		map.getAllStyles().setFgColor(ColorUtil.rgb(255,255,255));  //flashes white on click
@@ -366,15 +348,10 @@ public class Game extends Form implements Runnable{
   		MapCommand myMap = new MapCommand(gw);
   		map.setCommand(myMap);
   		addKeyListener('t', myMap);
-
   		
 		mv.getAllStyles().setBorder(Border.createLineBorder(8,ColorUtil.BLACK));
 		add(BorderLayout.CENTER, mv);
-		
-		// code here to create menus, create Command objects for each command,
-		// add commands to Command menu, create a control panel for the buttons,
-		// add buttons to the control panel, add commands to the buttons, and
-		// add control panel, MapView panel, and PointsView panel to the form
+
 		this.show();
 	}
 

@@ -1,7 +1,7 @@
 /* 
  * Oscar Esparza
  * Created : 17 September 2018
- * Updated : 11 Novemebr 2018
+ * Updated : 13 Novemebr 2018
  * GameWorld.java 
  * Homework 3 CSC 133 
  */
@@ -10,9 +10,6 @@ package com.mycompany.a3;
 
 import java.util.Observable;
 import java.util.Random;
-
-import com.codename1.ui.Graphics;
-import com.codename1.ui.geom.Point;
 import com.mycompany.a3.interfaces.ICollider;
 import com.mycompany.a3.interfaces.IGameWorld;
 import com.mycompany.a3.interfaces.IIterator;
@@ -25,7 +22,6 @@ import com.mycompany.a3.objects.NonePlayerShip;
 import com.mycompany.a3.objects.PlayerShip;
 import com.mycompany.a3.objects.Ships;
 import com.mycompany.a3.objects.SpaceStation;
-import com.mycompany.a3.views.MapView;
 
 public class GameWorld extends Observable implements IGameWorld{
 	Random rand = new Random();
@@ -47,6 +43,7 @@ public class GameWorld extends Observable implements IGameWorld{
 	public int WIDTH = 0;
 	public int HEIGHT = 0;
 	private static final int MAXMISSILES = 10;
+	BackgroundSound backgroundSound = new BackgroundSound("backgroud.wav");
 
 	// create a collection
 	public GameWorld() { go = new GameCollection();}
@@ -473,6 +470,7 @@ public class GameWorld extends Observable implements IGameWorld{
 		theElements = go.getIterator();
 		while(theElements.hasNext()) {
 			GameObject obj = theElements.getNext();
+			// for some reason this is the only way to not crash the game when PS hits an object
 			if(obj instanceof PlayerShip) {
 				if(obj.getCollision() == true) {
 					go.remove(obj);
@@ -514,6 +512,8 @@ public class GameWorld extends Observable implements IGameWorld{
 	
 	public void toggleSound() {
 		soundOn = !soundOn;		//toggles sound
+		if(soundOn) backgroundSound.run();
+		else backgroundSound.pause();
 		this.setChanged();
 		this.notifyObservers(new GameWorldProxy(this));
 	}
