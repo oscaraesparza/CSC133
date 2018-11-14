@@ -10,12 +10,14 @@ package com.mycompany.a3.objects;
 import com.codename1.charts.util.ColorUtil;
 import com.codename1.ui.Graphics;
 import com.codename1.ui.geom.Point;
+import com.mycompany.a3.SoundEffect;
 import com.mycompany.a3.interfaces.ICollider;
 import com.mycompany.a3.interfaces.IDrawable;
 
 public class Missile extends Movable implements IDrawable, ICollider{
 	private int fuel;
 	private Boolean ps = false;
+	SoundEffect mta = new SoundEffect("mta.mp3");
 	
 	public void setFuel(int fuel) {this.fuel = fuel;}
 	
@@ -69,8 +71,10 @@ public class Missile extends Movable implements IDrawable, ICollider{
 	}
 
 	public void handleCollision(ICollider otherObject) {	
-		if(otherObject instanceof Asteroid)
+		if(otherObject instanceof Asteroid) {
 			this.setCollision(true);
+			mta.play();
+		}
 		if(otherObject instanceof NonePlayerShip)
 			this.setCollision(true);
 		if(otherObject instanceof Missile)
