@@ -44,8 +44,8 @@ public class GameWorld extends Observable implements IGameWorld{
 	private int time = 0;
 	private boolean soundOn;
 	
-	public int WIDTH = 1024;
-	public int HEIGHT = 768;
+	public int WIDTH = 0;
+	public int HEIGHT = 0;
 	private static final int MAXMISSILES = 10;
 
 	// create a collection
@@ -210,8 +210,9 @@ public class GameWorld extends Observable implements IGameWorld{
 			missile = new Missile();
 			launcher = ps.getLauncher();
 			missile.setDirection(launcher.getDirection()); // since a ps launcher could have diff direction than ps
-			missile.setSpeed(ps.getSpeed() + 1);
-			missile.setLocation(launcher.getXCoordinate(), launcher.getYCoordinate()); //missile location is same as ps
+			missile.setSpeed(ps.getSpeed());
+			// prevent own missile from hitting the ship
+			missile.setLocation(launcher.getXCoordinate() + 3, launcher.getYCoordinate() + 3); 
 			missile.setColor(50,50,50); // same as launcher (gray)
 			missile.setFuel(10);
 			missile.setFlag(true); 		// missile is from ps
@@ -451,7 +452,6 @@ public class GameWorld extends Observable implements IGameWorld{
 		
 		//collision detection
 		theElements = go.getIterator();
-		
 		while(theElements.hasNext()) {
 			// get object
 			ICollider currentObject = (ICollider)theElements.getNext();
@@ -469,11 +469,19 @@ public class GameWorld extends Observable implements IGameWorld{
 			}
 		}
 		
-		// now lets get ride of crash objects
+		// now lets get rid of crash objects
 		theElements = go.getIterator();
 		while(theElements.hasNext()) {
 			GameObject obj = theElements.getNext();
-			if(obj.getCollision() == true)
+			if(obj instanceof PlayerShip) {
+				if(obj.getCollision() == true) {
+					go.remove(obj);
+					this.setChanged();
+					this.notifyObservers(new GameWorldProxy(this));
+					return;
+				}
+			}
+			else if(obj.getCollision() == true)
 				go.remove(obj);
 		}
 		
@@ -526,13 +534,27 @@ public class GameWorld extends Observable implements IGameWorld{
 	}
 
 	public int getLives() {return lives;}
-	public int getWidth() {return WIDTH;}
-	public int getHeight() {return HEIGHT;}
+	public void setDim(int w, int h) {
+		this.HEIGHT = h;
+		this.WIDTH = w;
+	}
 	public GameCollection getCollection(){
 		return go;
 	}
 
 	public void setHeight(int height2) {
 		HEIGHT = height2;
+	}
+
+	@Override
+	public int getWidth() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int getHeight() {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 }

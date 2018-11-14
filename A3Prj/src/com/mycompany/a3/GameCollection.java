@@ -33,8 +33,7 @@ public class GameCollection implements ICollection{
 			if (currentElementIndex == gameObjects.size() - 1) return false;
 			return true;
 		}
-		
-		public GameObject getNext() {
+		public GameObject getNext(){
 			currentElementIndex++;
 			return (gameObjects.elementAt(currentElementIndex));
 		}

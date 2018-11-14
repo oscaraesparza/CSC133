@@ -39,6 +39,7 @@ public class MapView extends Container implements Observer{
 			gwProxy = (GameWorld) o;
 			repaint();
 		}
+		gwProxy.setDim(this.getWidth(), this.getHeight());
 	}
 
 	public void paint(Graphics g) {
@@ -53,7 +54,7 @@ public class MapView extends Container implements Observer{
 			if(currentObject instanceof IMovable) {		
 				int x = (int) ((GameObject)currentObject).getXCoordinate();
 				int y = (int) ((GameObject)currentObject).getYCoordinate();
-				int rightWall = this.getWidth() ;//+ this.getX();
+				int rightWall = this.getWidth();
 				int leftWall = this.getWidth() - this.getX();
 				int bottomWall = this.getY() + this.getHeight();
 				int topWall = this.getY();

@@ -33,9 +33,11 @@ public class NonePlayerShip extends Ships implements IDrawable, ICollider{
 		Point bRight = new Point(pCmpRelPrnt.getX() + x + (this.getSize()/2), pCmpRelPrnt.getY() + y  - (this.getSize() / 2));
 		
 		g.setColor(getColor());
-		int [] xPoints = new int [] {(int) top.getX(), (int) bLeft.getX(), (int)bRight.getX()} ; 
-	    int [] yPoints = new int [] {(int) top.getY(), (int) bLeft.getY(), (int)bRight.getY()} ; 
-		g.drawPolygon(xPoints, yPoints, 3);
+		//int [] xPoints = new int [] {(int) top.getX(), (int) bLeft.getX(), (int)bRight.getX()} ; 
+	    //int [] yPoints = new int [] {(int) top.getY(), (int) bLeft.getY(), (int)bRight.getY()} ; 
+		//g.drawPolygon(xPoints, yPoints, 3);
+		g.drawRect(x, y, getSize(), getSize());
+		g.fillRect(x, y, getSize(), getSize());
 	}
 
 	@Override
