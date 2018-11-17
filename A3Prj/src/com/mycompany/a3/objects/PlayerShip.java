@@ -43,7 +43,7 @@ public class PlayerShip extends Ships implements ISteerable, IDrawable, ICollide
 	    int [] yPoints = new int [] {(int) top.getY(), (int) bLeft.getY(), (int)bRight.getY()} ; 
 		g.drawPolygon(xPoints, yPoints, 3);*/
 		g.drawRect(x, y, getSize(), getSize());
-		g.fillRect(x, y, getSize(), getSize());
+		//g.fillRect(x, y, getSize(), getSize());
 	}
 
 	@Override

@@ -16,7 +16,7 @@ import com.mycompany.a3.interfaces.ISelectable;
 
 public class Asteroid extends Movable implements IDrawable, ICollider, ISelectable{
 	Boolean selected = false;
-	Boolean cFlag;
+	Boolean cFlag = false;
 	public String toString() {
 		return ("Asteroid: Loc = " + Math.round(getXCoordinate()) + ", " + Math.round(getYCoordinate()) + 
 				", color = [" + ColorUtil.red(getColor()) + ", " + ColorUtil.green(getColor()) + ", " + ColorUtil.blue(getColor()) + "]" +
@@ -30,8 +30,12 @@ public class Asteroid extends Movable implements IDrawable, ICollider, ISelectab
 		int x = (int)(pCmpRelPrnt.getX() + this.getXCoordinate());
 		int y = (int)(pCmpRelPrnt.getY() + this.getYCoordinate());
 		g.setColor(getColor());
-		if(isSelected()) g.drawArc(x, y, getSize(), getSize(), 0, 360);	
-		else g.fillArc(x, y, getSize(), getSize(), 0, 360);
+		g.drawArc(x, y, getSize(), getSize(), 0, 360);
+		// if clicked on the object will be highlighted
+		if(isSelected()) {
+			g.fillArc(x, y, getSize(), getSize(), 0, 360);
+			this.select();	// unhighlite
+		}
 	}
 
 	public Boolean collidesWith(ICollider otherObject) {
@@ -74,7 +78,7 @@ public class Asteroid extends Movable implements IDrawable, ICollider, ISelectab
 		int xLoc = (pCmpRelPrnt.getX())+iShapeX ;
 		int yLoc = (pCmpRelPrnt.getY())+iShapeY ;
 		
-		if((xLoc<=px&&px<=xLoc+getSize())&&(yLoc<=py&&py<=yLoc+getSize())) setContainFlag(false);
+		if((xLoc <= px && px <= xLoc + getSize()) && (yLoc <= py && py <= yLoc + getSize())) setContainFlag(false);
 		else setContainFlag(true);
 		
 		return getContainFlag();
@@ -83,5 +87,6 @@ public class Asteroid extends Movable implements IDrawable, ICollider, ISelectab
 	private Boolean getContainFlag() { return cFlag;}
 	private void setContainFlag(Boolean f) {this.cFlag = f;}
 	public void setSelected(Boolean select) {selected = select;}
+	public void select() {this.selected = false;}
 	public Boolean isSelected() {return selected;}
 }

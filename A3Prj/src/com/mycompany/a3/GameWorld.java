@@ -53,7 +53,7 @@ public class GameWorld extends Observable implements IGameWorld{
 	
 	public void addAsteroid() {
 		asteroid = new Asteroid();
-		asteroid.setSize((rand.nextInt(24) + 6) * 2); 	// 6 - 30
+		asteroid.setSize((rand.nextInt(24) + 6) * 7); 	// 6 - 30
 		asteroid.setSpeed(rand.nextInt(10));		// 0 - 10
 		asteroid.setDirection(rand.nextInt(359));	// 0 - 359
 		asteroid.setColor(255, 0, 0);				// red
@@ -67,7 +67,7 @@ public class GameWorld extends Observable implements IGameWorld{
 	public void addNonePlayerShip() {
 		int direction = rand.nextInt(359);			// 0 - 359
 		nps = new NonePlayerShip();
-		nps.setSize(((rand.nextInt(1) + 1) * 10) * 2); 	// 10 or 20
+		nps.setSize(((rand.nextInt(1) + 1) * 10) * 7); 	// 10 or 20
 		nps.setMissleCount(MAXMISSILES);			// 10
 		nps.setSpeed(rand.nextInt(10));				// 0 - 10
 		nps.setDirection(direction);				// 0 - 359
@@ -90,7 +90,7 @@ public class GameWorld extends Observable implements IGameWorld{
 		station.setLocation(rand.nextInt(WIDTH), rand.nextInt(HEIGHT));
 		station.setColor(0, 255, 0);			// green
 		station.setID();
-		station.setSize(20);
+		station.setSize(50);
 		station.setBlinkRate(rand.nextInt(4));	// 0 - 4
 		go.add(station);
 		this.setChanged();
@@ -120,6 +120,7 @@ public class GameWorld extends Observable implements IGameWorld{
 		psLauncher.setLocation((WIDTH / 2), (HEIGHT / 2));
 		psLauncher.setDirection(rand.nextInt(359));	// 0 - 359
 		psLauncher.setColor(50, 50, 50);		// grey
+		psLauncher.setSize(5);
 		ps.setMissleLaucher(psLauncher);
 		go.add(psLauncher);
 		go.add(ps);
@@ -217,6 +218,7 @@ public class GameWorld extends Observable implements IGameWorld{
 			missile.setColor(50,50,50); // same as launcher (gray)
 			missile.setFuel(10);
 			missile.setFlag(true); 		// missile is from ps
+			missile.setSize(10);
 			go.add(missile);
 			ps.useMissile(1);
 			this.setChanged();
@@ -429,17 +431,18 @@ public class GameWorld extends Observable implements IGameWorld{
 		}
 		// need to restart iterator
 		// will fail if you fire 2 missiles at the same time ... sometimes
-		/*
 		theElements = go.getIterator();
 		while(theElements.hasNext()) {					
 			if(theElements.getNext() instanceof Missile) {	
 				Missile mObj = (Missile)theElements.get();
-				if(mObj.useFuel()) {	//if out of fuel
-					System.out.println("Missile has run out of fuel");
-					go.remove(mObj); 	// removes the missile
+				if(getTime() % 100 == 0) {
+					if(mObj.useFuel()) {	//if out of fuel
+						System.out.println("Missile has run out of fuel");
+						go.remove(mObj); 	// removes the missile
+					}
 				}
 			}
-		} */
+		}
 		
 		// blink for spacestation
 		theElements = go.getIterator();
@@ -471,13 +474,16 @@ public class GameWorld extends Observable implements IGameWorld{
 		}
 		
 		// now lets get rid of crash objects
-		theElements = go.getIterator();
+		theElements = go.getIterator();	
+		MissleLauncher ms;
 		while(theElements.hasNext()) {
 			GameObject obj = theElements.getNext();
 			// for some reason this is the only way to not crash the game when PS hits an object
 			if(obj instanceof PlayerShip) {
 				if(obj.getCollision() == true) {
+					ms = ((PlayerShip) obj).getLauncher();
 					go.remove(obj);
+					go.remove(ms);
 					lives--;
 					this.setChanged();
 					this.notifyObservers(new GameWorldProxy(this));

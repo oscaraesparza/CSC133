@@ -35,6 +35,7 @@ public class MissleLauncher extends Movable implements ISteerable, IDrawable, IC
 		// Turn (x, y) from float to int
 		int x = (int)(pCmpRelPrnt.getX() + this.getXCoordinate());
 		int y = (int)(pCmpRelPrnt.getY() + this.getYCoordinate());
+		/*
 		Point top = new Point(pCmpRelPrnt.getX() + x, pCmpRelPrnt.getY() + y + (this.getSize() / 2));
 		Point bLeft = new Point(pCmpRelPrnt.getX() + x - (this.getSize() / 2), pCmpRelPrnt.getY() + y - (this.getSize() / 2)); 
 		Point bRight = new Point(pCmpRelPrnt.getX() + x + (this.getSize()/2), pCmpRelPrnt.getY() + y  - (this.getSize() / 2));
@@ -42,7 +43,10 @@ public class MissleLauncher extends Movable implements ISteerable, IDrawable, IC
 		g.setColor(getColor());
 		int [] xPoints = new int [] {(int) top.getX(), (int) bLeft.getX(), (int)bRight.getX()} ; 
 	    int [] yPoints = new int [] {(int) top.getY(), (int) bLeft.getY(), (int)bRight.getY()} ; 
-		g.drawPolygon(xPoints, yPoints, 3);
+		g.drawPolygon(xPoints, yPoints, 3);*/
+		
+		g.setColor(getColor());
+		g.drawRect(x, y, getSize(), getSize()/2);
 	}
 
 	@Override

@@ -19,7 +19,7 @@ public class Missile extends Movable implements IDrawable, ICollider, ISelectabl
 	private int fuel;
 	private Boolean ps = false;
 	private Boolean cFlag;
-	Boolean selected; 
+	Boolean selected = false; 
 	SoundEffect mta = new SoundEffect("mta.mp3");
 	
 	public void setFuel(int fuel) {this.fuel = fuel;}
@@ -49,8 +49,11 @@ public class Missile extends Movable implements IDrawable, ICollider, ISelectabl
 		int x = (int)(pCmpRelPrnt.getX() + this.getXCoordinate());
 		int y = (int)(pCmpRelPrnt.getY() + this.getYCoordinate());
 		g.setColor(getColor());
-		if(isSelected()) g.drawRect(x, y, getSize(), getSize() / 2);
-		else g.fillRect(x, y, getSize(), getSize() / 2);
+		g.fillRect(x, y, getSize(), getSize() / 2);
+		if(isSelected()) {
+			g.drawRect(x, y, getSize(), getSize() / 2);
+			this.select();
+		}
 	}
 	
 	public Boolean collidesWith(ICollider otherObject) {
@@ -105,4 +108,5 @@ public class Missile extends Movable implements IDrawable, ICollider, ISelectabl
 	private void setContainFlag(Boolean f) {this.cFlag = f;}
 	public void setSelected(Boolean select) {selected = select;}
 	public Boolean isSelected() {return selected;}
+	public void select() {this.selected = false;}
 }

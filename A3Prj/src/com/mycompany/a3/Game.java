@@ -38,6 +38,7 @@ import com.mycompany.a3.commands.LaunchMissileCommand;
 import com.mycompany.a3.commands.MapCommand;
 import com.mycompany.a3.commands.NPSAsteroidCollisionCommand;
 import com.mycompany.a3.commands.PauseCommand;
+import com.mycompany.a3.commands.RefuelCommand;
 import com.mycompany.a3.commands.ReloadCommand;
 import com.mycompany.a3.commands.TickCommand;
 import com.mycompany.a3.commands.TurnLeftCommand;
@@ -134,6 +135,7 @@ public class Game extends Form implements Runnable{
   		Button NPSAsteroidCollision  = new Button("NPS & Asteroid Collision");
   		Button tick = new Button("TICK");
   		Button map = new Button("Map");
+  		Button refuel = new Button("Refuel");
   		
   		// Asteroid Stuff
   		addAsteroid.getAllStyles().setBgTransparency(255);  //255 for not Transparent
@@ -359,6 +361,14 @@ public class Game extends Form implements Runnable{
   		pause.getAllStyles().setMargin(topGap, bottomGap, leftGap, rightGap);
   		leftContainer.add(pause);
   		pause.setCommand(new PauseCommand(gw));
+  		
+  		refuel.getAllStyles().setBgTransparency(255);
+  		refuel.getUnselectedStyle().setBgColor(ColorUtil.rgb(67, 97, 246));
+  		refuel.getAllStyles().setFgColor(ColorUtil.rgb(255,255,255));  //flashes white on click
+  		refuel.getAllStyles().setMargin(topGap, bottomGap, leftGap, rightGap);
+  		leftContainer.add(map);
+  		MapCommand myRefuel = new RefuelCommand(gw);
+  		refuel.setCommand(myRefuel);
   		
 		mv.getAllStyles().setBorder(Border.createLineBorder(8,ColorUtil.BLACK));
 		add(BorderLayout.CENTER, mv);
