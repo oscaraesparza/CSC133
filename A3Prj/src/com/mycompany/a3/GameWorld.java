@@ -43,6 +43,7 @@ public class GameWorld extends Observable implements IGameWorld{
 	public int WIDTH = 0;
 	public int HEIGHT = 0;
 	private static final int MAXMISSILES = 10;
+	Boolean play = true; 
 	// Sound
 	BackgroundSound backgroundSound = new BackgroundSound("backgroud.wav");
 	SoundEffect shots = new SoundEffect("Missile.mp3");
@@ -560,5 +561,29 @@ public class GameWorld extends Observable implements IGameWorld{
 	public int getHeight() {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+	
+	public Boolean getPlay() {return play;}
+	public void setPlay(Boolean play) {this.play = play;}
+	
+	public void play() {
+		if(!getPlay())	setPlay(true);
+		else 	setPlay(false);
+		this.setChanged();
+		this.notifyObservers(new GameWorldProxy(this));
+	}
+	
+	public void playTOpause() {
+		Game.pause().setText("Pause");
+		if(getSound() == "ON")	toggleSound();	
+		this.setChanged();
+		this.notifyObservers(new GameWorldProxy(this));
+	}
+	
+	public void pauseTOplay() {
+		Game.pause().setText("Play");
+		if(getSound() == "OFF")	toggleSound();	
+		this.setChanged();
+		this.notifyObservers(new GameWorldProxy(this));
 	}
 }

@@ -37,6 +37,7 @@ import com.mycompany.a3.commands.KillPSCommand;
 import com.mycompany.a3.commands.LaunchMissileCommand;
 import com.mycompany.a3.commands.MapCommand;
 import com.mycompany.a3.commands.NPSAsteroidCollisionCommand;
+import com.mycompany.a3.commands.PauseCommand;
 import com.mycompany.a3.commands.ReloadCommand;
 import com.mycompany.a3.commands.TickCommand;
 import com.mycompany.a3.commands.TurnLeftCommand;
@@ -55,6 +56,9 @@ public class Game extends Form implements Runnable{
 	private int bottomGap = 4;
 	private int leftGap = 1;
 	private int rightGap = 1;
+	
+	private static Button pause = new Button("Pause");
+	//PauseCommand myPause = new PauseCommand(gw);
 	
 	public Game() {		
 		UITimer timer = new UITimer(this);
@@ -331,14 +335,14 @@ public class Game extends Form implements Runnable{
   		NPSAsteroidCollision.setCommand(myNPSAsteroidCollision);
   		addKeyListener('I', myNPSAsteroidCollision);
   		
-  		tick.getAllStyles().setBgTransparency(255);
+  		/*tick.getAllStyles().setBgTransparency(255);
   		tick.getUnselectedStyle().setBgColor(ColorUtil.rgb(67, 97, 246));
   		tick.getAllStyles().setFgColor(ColorUtil.rgb(255,255,255));  //flashes white on click
   		tick.getAllStyles().setMargin(topGap, bottomGap, leftGap, rightGap);
   		leftContainer.add(tick);
   		TickCommand mytick = new TickCommand(gw);
   		tick.setCommand(mytick);
-  		addKeyListener('t', mytick);	
+  		addKeyListener('t', mytick);	*/
   	
   		map.getAllStyles().setBgTransparency(255);
   		map.getUnselectedStyle().setBgColor(ColorUtil.rgb(67, 97, 246));
@@ -347,7 +351,14 @@ public class Game extends Form implements Runnable{
   		leftContainer.add(map);
   		MapCommand myMap = new MapCommand(gw);
   		map.setCommand(myMap);
-  		addKeyListener('t', myMap);
+  		addKeyListener('m', myMap);
+  		
+  		pause.getAllStyles().setBgTransparency(255);
+  		pause.getUnselectedStyle().setBgColor(ColorUtil.rgb(67, 97, 246));
+  		pause.getAllStyles().setFgColor(ColorUtil.rgb(255,255,255));  //flashes white on click
+  		pause.getAllStyles().setMargin(topGap, bottomGap, leftGap, rightGap);
+  		leftContainer.add(pause);
+  		pause.setCommand(new PauseCommand(gw));
   		
 		mv.getAllStyles().setBorder(Border.createLineBorder(8,ColorUtil.BLACK));
 		add(BorderLayout.CENTER, mv);
@@ -357,6 +368,8 @@ public class Game extends Form implements Runnable{
 
 	@Override
 	public void run() {
-		gw.tick();	
+		if(gw.getPlay())
+			gw.tick();	
 	}
+	public static Button pause() {return pause;}
 }

@@ -1,9 +1,9 @@
 /* 
  * Oscar Esparza
  * Created : 21 September 2018
- * Updated : 10 October 2018
+ * Updated : 16 November 2018
  * Missle.java 
- * Homework 2 CSC 133 
+ * Homework 3 CSC 133 
  */
 package com.mycompany.a3.objects;
 
@@ -13,10 +13,13 @@ import com.codename1.ui.geom.Point;
 import com.mycompany.a3.SoundEffect;
 import com.mycompany.a3.interfaces.ICollider;
 import com.mycompany.a3.interfaces.IDrawable;
+import com.mycompany.a3.interfaces.ISelectable;
 
-public class Missile extends Movable implements IDrawable, ICollider{
+public class Missile extends Movable implements IDrawable, ICollider, ISelectable{
 	private int fuel;
 	private Boolean ps = false;
+	private Boolean cFlag;
+	Boolean selected; 
 	SoundEffect mta = new SoundEffect("mta.mp3");
 	
 	public void setFuel(int fuel) {this.fuel = fuel;}
@@ -46,7 +49,8 @@ public class Missile extends Movable implements IDrawable, ICollider{
 		int x = (int)(pCmpRelPrnt.getX() + this.getXCoordinate());
 		int y = (int)(pCmpRelPrnt.getY() + this.getYCoordinate());
 		g.setColor(getColor());
-		g.drawRect(x, y, getSize(), getSize() / 2);
+		if(isSelected()) g.drawRect(x, y, getSize(), getSize() / 2);
+		else g.fillRect(x, y, getSize(), getSize() / 2);
 	}
 	
 	public Boolean collidesWith(ICollider otherObject) {
@@ -82,4 +86,23 @@ public class Missile extends Movable implements IDrawable, ICollider{
 		//if(otherObject instanceof PlayerShip)
 			//this.setCollision(true);
 	}
+
+	public Boolean contains(Point pPtrRelPrnt, Point pCmpRelPrnt) {
+		int iShapeX=(int)this.getXCoordinate(); 
+	    int iShapeY=(int)this.getXCoordinate(); 
+	    int px = pPtrRelPrnt.getX(); 
+		int py = pPtrRelPrnt.getY(); 
+		int xLoc = (pCmpRelPrnt.getX())+iShapeX ;
+		int yLoc = (pCmpRelPrnt.getY())+iShapeY ;
+		
+		if((xLoc<=px&&px<=xLoc+getSize())&&(yLoc<=py&&py<=yLoc+getSize())) setContainFlag(false);
+		else setContainFlag(true);
+		
+		return getContainFlag();
+	}
+
+	private Boolean getContainFlag() { return cFlag;}
+	private void setContainFlag(Boolean f) {this.cFlag = f;}
+	public void setSelected(Boolean select) {selected = select;}
+	public Boolean isSelected() {return selected;}
 }
