@@ -327,7 +327,7 @@ public class Game extends Form implements Runnable{
   		AACollisionCommand myAACollision = new AACollisionCommand(gw);
   		AACollision.setCommand(myAACollision);
   		addKeyListener('x', myAACollision);
-  		
+  		/*
   		NPSAsteroidCollision.getAllStyles().setBgTransparency(255);
   		NPSAsteroidCollision.getUnselectedStyle().setBgColor(ColorUtil.rgb(67, 97, 246));
   		NPSAsteroidCollision.getAllStyles().setFgColor(ColorUtil.rgb(255,255,255));  //flashes white on click
@@ -335,7 +335,7 @@ public class Game extends Form implements Runnable{
   		leftContainer.add(NPSAsteroidCollision);
   		NPSAsteroidCollisionCommand myNPSAsteroidCollision = new NPSAsteroidCollisionCommand(gw);
   		NPSAsteroidCollision.setCommand(myNPSAsteroidCollision);
-  		addKeyListener('I', myNPSAsteroidCollision);
+  		addKeyListener('I', myNPSAsteroidCollision);*/
   		
   		/*tick.getAllStyles().setBgTransparency(255);
   		tick.getUnselectedStyle().setBgColor(ColorUtil.rgb(67, 97, 246));
@@ -366,8 +366,8 @@ public class Game extends Form implements Runnable{
   		refuel.getUnselectedStyle().setBgColor(ColorUtil.rgb(67, 97, 246));
   		refuel.getAllStyles().setFgColor(ColorUtil.rgb(255,255,255));  //flashes white on click
   		refuel.getAllStyles().setMargin(topGap, bottomGap, leftGap, rightGap);
-  		leftContainer.add(map);
-  		MapCommand myRefuel = new RefuelCommand(gw);
+  		leftContainer.add(refuel);
+  		RefuelCommand myRefuel = new RefuelCommand(gw);
   		refuel.setCommand(myRefuel);
   		
 		mv.getAllStyles().setBorder(Border.createLineBorder(8,ColorUtil.BLACK));

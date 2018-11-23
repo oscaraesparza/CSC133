@@ -39,7 +39,7 @@ public class GameWorld extends Observable implements IGameWorld{
 	private int score = 0;
 	private int time = 0;
 	private boolean soundOn;
-	
+	/*****************Other Variables************************/
 	public int WIDTH = 0;
 	public int HEIGHT = 0;
 	private static final int MAXMISSILES = 10;
@@ -591,5 +591,23 @@ public class GameWorld extends Observable implements IGameWorld{
 		if(getSound() == "OFF")	toggleSound();	
 		this.setChanged();
 		this.notifyObservers(new GameWorldProxy(this));
+	}
+	
+	public void refuel() {
+		if(getPlay())	System.out.println("Game must be paused to use this!");
+		else {
+			IIterator theElements = go.getIterator();
+			Missile m;
+			// checks to see if there is a missile
+			while(theElements.hasNext()){
+				if(theElements.getNext() instanceof Missile) {
+					m = (Missile)theElements.get();
+					if(m.isSelected()) {	// checks to see if selected
+						m.setFuel(10);
+						System.out.println("Missile Has been refueled.");
+					}
+				}		
+			}
+		}
 	}
 }
