@@ -20,27 +20,19 @@ import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.ui.plaf.Border;
 import com.codename1.ui.util.UITimer;
-import com.mycompany.a3.commands.AACollisionCommand;
 import com.mycompany.a3.commands.AccelerateCommand;
 import com.mycompany.a3.commands.AddAsteroidCommand;
 import com.mycompany.a3.commands.AddNPSCommand;
 import com.mycompany.a3.commands.AddPSCommand;
 import com.mycompany.a3.commands.AddSSCommand;
-import com.mycompany.a3.commands.CrashAsteroidCommand;
-import com.mycompany.a3.commands.CrashNPSCommand;
 import com.mycompany.a3.commands.DecelerateCommand;
 import com.mycompany.a3.commands.FireMissileCommand;
 import com.mycompany.a3.commands.JumpCommand;
-import com.mycompany.a3.commands.KillAsteroidCommand;
-import com.mycompany.a3.commands.KillNPSCommand;
-import com.mycompany.a3.commands.KillPSCommand;
 import com.mycompany.a3.commands.LaunchMissileCommand;
 import com.mycompany.a3.commands.MapCommand;
-import com.mycompany.a3.commands.NPSAsteroidCollisionCommand;
 import com.mycompany.a3.commands.PauseCommand;
 import com.mycompany.a3.commands.RefuelCommand;
 import com.mycompany.a3.commands.ReloadCommand;
-import com.mycompany.a3.commands.TickCommand;
 import com.mycompany.a3.commands.TurnLeftCommand;
 import com.mycompany.a3.commands.TurnMissileLauncherLeftCommand;
 import com.mycompany.a3.commands.TurnMissileLauncherRightCommand;
@@ -126,14 +118,6 @@ public class Game extends Form implements Runnable{
   		Button LaunchMissile = new Button("Launch Missile");
   		Button Jump = new Button("Jump");
   		Button Reload = new Button("Reload");
-  		Button KillAsteroid = new Button("Destoy Asteroid w/Missile");	
-  		Button KillNPS = new Button("Destoy NPS w/Missile");	
-  		Button KillPS = new Button("Destoy PS w/Missile");
-  		Button CrashAsteroid  = new Button("Crash into Asteroid");
-  		Button CrashNPS  = new Button("Crash into NPS");
-  		Button AACollision  = new Button("Asteroid Collision");
-  		Button NPSAsteroidCollision  = new Button("NPS & Asteroid Collision");
-  		Button tick = new Button("TICK");
   		Button map = new Button("Map");
   		Button refuel = new Button("Refuel");
   		
@@ -273,78 +257,6 @@ public class Game extends Form implements Runnable{
   		ReloadCommand myReload = new ReloadCommand(gw);
   		Reload.setCommand(myReload);
   		addKeyListener('n', myReload);
-  		
-  		KillAsteroid.getAllStyles().setBgTransparency(255);
-  		KillAsteroid.getUnselectedStyle().setBgColor(ColorUtil.rgb(67, 97, 246));
-  		KillAsteroid.getAllStyles().setFgColor(ColorUtil.rgb(255,255,255));  //flashes white on click
-  		KillAsteroid.getAllStyles().setMargin(topGap, bottomGap, leftGap, rightGap);
-  		leftContainer.add(KillAsteroid);
-  		KillAsteroidCommand myKillAsteroid = new KillAsteroidCommand(gw);
-  		KillAsteroid.setCommand(myKillAsteroid);
-  		addKeyListener('k', myKillAsteroid);
-  		
-  		KillNPS.getAllStyles().setBgTransparency(255);
-  		KillNPS.getUnselectedStyle().setBgColor(ColorUtil.rgb(67, 97, 246));
-  		KillNPS.getAllStyles().setFgColor(ColorUtil.rgb(255,255,255));  //flashes white on click
-  		KillNPS.getAllStyles().setMargin(topGap, bottomGap, leftGap, rightGap);
-  		leftContainer.add(KillNPS);
-  		KillNPSCommand myKillNPS = new KillNPSCommand(gw);
-  		KillNPS.setCommand(myKillNPS);
-  		addKeyListener('e', myKillNPS);
-  		
-  		KillPS.getAllStyles().setBgTransparency(255);
-  		KillPS.getUnselectedStyle().setBgColor(ColorUtil.rgb(67, 97, 246));
-  		KillPS.getAllStyles().setFgColor(ColorUtil.rgb(255,255,255));  //flashes white on click
-  		KillPS.getAllStyles().setMargin(topGap, bottomGap, leftGap, rightGap);
-  		leftContainer.add(KillPS);
-  		KillPSCommand myKillPS = new KillPSCommand(gw);
-  		KillPS.setCommand(myKillPS);
-  		addKeyListener('E', myKillPS);
-  		
-  		CrashAsteroid.getAllStyles().setBgTransparency(255);
-  		CrashAsteroid.getUnselectedStyle().setBgColor(ColorUtil.rgb(67, 97, 246));
-  		CrashAsteroid.getAllStyles().setFgColor(ColorUtil.rgb(255,255,255));  //flashes white on click
-  		CrashAsteroid.getAllStyles().setMargin(topGap, bottomGap, leftGap, rightGap);
-  		leftContainer.add(CrashAsteroid);
-  		CrashAsteroidCommand myCrashAsteroid = new CrashAsteroidCommand(gw);
-  		CrashAsteroid.setCommand(myCrashAsteroid);
-  		addKeyListener('c', myCrashAsteroid);
-  		
-  		CrashNPS.getAllStyles().setBgTransparency(255);
-  		CrashNPS.getUnselectedStyle().setBgColor(ColorUtil.rgb(67, 97, 246));
-  		CrashNPS.getAllStyles().setFgColor(ColorUtil.rgb(255,255,255));  //flashes white on click
-  		CrashNPS.getAllStyles().setMargin(topGap, bottomGap, leftGap, rightGap);
-  		leftContainer.add(CrashNPS);
-  		CrashNPSCommand myCrashNPS = new CrashNPSCommand(gw);
-  		CrashNPS.setCommand(myCrashNPS);
-  		addKeyListener('h', myCrashNPS);
-  		
-  		AACollision.getAllStyles().setBgTransparency(255);
-  		AACollision.getUnselectedStyle().setBgColor(ColorUtil.rgb(67, 97, 246));
-  		AACollision.getAllStyles().setFgColor(ColorUtil.rgb(255,255,255));  //flashes white on click
-  		AACollision.getAllStyles().setMargin(topGap, bottomGap, leftGap, rightGap);
-  		leftContainer.add(AACollision);
-  		AACollisionCommand myAACollision = new AACollisionCommand(gw);
-  		AACollision.setCommand(myAACollision);
-  		addKeyListener('x', myAACollision);
-  		/*
-  		NPSAsteroidCollision.getAllStyles().setBgTransparency(255);
-  		NPSAsteroidCollision.getUnselectedStyle().setBgColor(ColorUtil.rgb(67, 97, 246));
-  		NPSAsteroidCollision.getAllStyles().setFgColor(ColorUtil.rgb(255,255,255));  //flashes white on click
-  		NPSAsteroidCollision.getAllStyles().setMargin(topGap, bottomGap, leftGap, rightGap);
-  		leftContainer.add(NPSAsteroidCollision);
-  		NPSAsteroidCollisionCommand myNPSAsteroidCollision = new NPSAsteroidCollisionCommand(gw);
-  		NPSAsteroidCollision.setCommand(myNPSAsteroidCollision);
-  		addKeyListener('I', myNPSAsteroidCollision);*/
-  		
-  		/*tick.getAllStyles().setBgTransparency(255);
-  		tick.getUnselectedStyle().setBgColor(ColorUtil.rgb(67, 97, 246));
-  		tick.getAllStyles().setFgColor(ColorUtil.rgb(255,255,255));  //flashes white on click
-  		tick.getAllStyles().setMargin(topGap, bottomGap, leftGap, rightGap);
-  		leftContainer.add(tick);
-  		TickCommand mytick = new TickCommand(gw);
-  		tick.setCommand(mytick);
-  		addKeyListener('t', mytick);	*/
   	
   		map.getAllStyles().setBgTransparency(255);
   		map.getUnselectedStyle().setBgColor(ColorUtil.rgb(67, 97, 246));

@@ -373,27 +373,6 @@ public class GameWorld extends Observable implements IGameWorld{
 		else System.out.println("You have no PS or NPS in space.");
 	}
 	
-	public void asteroidCollision() {
-		IIterator theElements = go.getIterator();
-		GameObject a1 = null;
-		GameObject a2 = null;
-		while(theElements.hasNext()) {					//iterate to find Asteroid
-			if(theElements.getNext() instanceof Asteroid) {	
-				if(a1 == null) a1 = (GameObject)theElements.get();
-				else a2 = (GameObject)theElements.get();
-			}
-			
-		}
-		if((a1 != null) && (a2 != null)) {
-			go.remove(a1);
-			go.remove(a2);
-			this.setChanged();
-			this.notifyObservers(new GameWorldProxy(this));
-			System.out.println("Asteroids have collided");
-		}
-		else System.out.println("You need 2 asteroids for an ASTEROID COLLISION");
-	}
-	
 	// May need some debugging 
 	// if you only have 1 of each it might not work for some reason...
 	public void npsAsteroidCollision() {
@@ -435,7 +414,7 @@ public class GameWorld extends Observable implements IGameWorld{
 		while(theElements.hasNext()) {					
 			if(theElements.getNext() instanceof Missile) {	
 				Missile mObj = (Missile)theElements.get();
-				if(getTime() % 100 == 0) {
+				if(getTime() % 10 == 0) {
 					if(mObj.useFuel()) {	//if out of fuel
 						System.out.println("Missile has run out of fuel");
 						go.remove(mObj); 	// removes the missile
@@ -488,6 +467,12 @@ public class GameWorld extends Observable implements IGameWorld{
 					this.setChanged();
 					this.notifyObservers(new GameWorldProxy(this));
 					return;
+				}
+			}
+			if(obj instanceof Asteroid) {
+				if(obj.getCollision() == true) {
+					if(((Asteroid) obj).hitByMissile()) score++;
+					go.remove(obj);
 				}
 			}
 			else if(obj.getCollision() == true)
@@ -610,4 +595,6 @@ public class GameWorld extends Observable implements IGameWorld{
 			}
 		}
 	}
+	
+	public void incrementScore() {this.score++;}
 }

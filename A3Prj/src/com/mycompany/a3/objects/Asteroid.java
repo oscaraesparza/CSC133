@@ -17,6 +17,7 @@ import com.mycompany.a3.interfaces.ISelectable;
 public class Asteroid extends Movable implements IDrawable, ICollider, ISelectable{
 	Boolean selected = false;
 	Boolean cFlag = false;
+	Boolean hitByM= false;
 	public String toString() {
 		return ("Asteroid: Loc = " + Math.round(getXCoordinate()) + ", " + Math.round(getYCoordinate()) + 
 				", color = [" + ColorUtil.red(getColor()) + ", " + ColorUtil.green(getColor()) + ", " + ColorUtil.blue(getColor()) + "]" +
@@ -64,11 +65,15 @@ public class Asteroid extends Movable implements IDrawable, ICollider, ISelectab
 			this.setCollision(true);
 		if(otherObject instanceof NonePlayerShip)
 			this.setCollision(true);
-		if(otherObject instanceof Missile)
+		if(otherObject instanceof Missile) {
 			this.setCollision(true);
+			this.hitByM = true;
+		}
 		if(otherObject instanceof PlayerShip)
 			this.setCollision(true);
 	}
+	
+	public Boolean hitByMissile() {return this.hitByM;}
 
 	public Boolean contains(Point pPtrRelPrnt, Point pCmpRelPrnt) {
 		int iShapeX=(int)this.getXCoordinate(); 
