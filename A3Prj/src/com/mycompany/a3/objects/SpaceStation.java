@@ -34,6 +34,7 @@ public class SpaceStation extends Fixed implements IDrawable, ICollider{
 		int y = (int)(pCmpRelPrnt.getY() + this.getYCoordinate());
 		g.setColor(getColor());
 		g.drawRect(x, y, getSize(), getSize());
+		g.fillRect(x, y, getSize(), getSize());
 	}
 	
 	public Boolean collidesWith(ICollider otherObject) {

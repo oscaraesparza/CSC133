@@ -67,7 +67,7 @@ public class GameWorld extends Observable implements IGameWorld{
 	public void addNonePlayerShip() {
 		int direction = rand.nextInt(359);			// 0 - 359
 		nps = new NonePlayerShip();
-		nps.setSize(((rand.nextInt(1) + 1) * 10) * 7); 	// 10 or 20
+		nps.setSize((rand.nextInt(1) + 1) * 10); 	// 10 or 20
 		nps.setMissleCount(MAXMISSILES);			// 10
 		nps.setSpeed(rand.nextInt(10));				// 0 - 10
 		nps.setDirection(direction);				// 0 - 359
@@ -120,7 +120,7 @@ public class GameWorld extends Observable implements IGameWorld{
 		psLauncher.setLocation((WIDTH / 2), (HEIGHT / 2));
 		psLauncher.setDirection(rand.nextInt(359));	// 0 - 359
 		psLauncher.setColor(50, 50, 50);		// grey
-		psLauncher.setSize(5);
+		psLauncher.setSize(10);
 		ps.setMissleLaucher(psLauncher);
 		go.add(psLauncher);
 		go.add(ps);
