@@ -49,9 +49,9 @@ public class Missile extends Movable implements IDrawable, ICollider, ISelectabl
 		int x = (int)(pCmpRelPrnt.getX() + this.getXCoordinate());
 		int y = (int)(pCmpRelPrnt.getY() + this.getYCoordinate());
 		g.setColor(getColor());
-		g.fillRect(x, y, getSize(), getSize() / 2);
+		g.drawRect(x, y, getSize() + 10, getSize() / 2);
 		if(isSelected()) {
-			g.drawRect(x, y, getSize(), getSize() / 2);
+			g.fillRect(x, y, getSize() + 10, getSize() / 2);
 			this.select();
 		}
 	}

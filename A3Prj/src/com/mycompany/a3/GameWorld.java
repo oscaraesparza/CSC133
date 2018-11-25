@@ -10,6 +10,8 @@ package com.mycompany.a3;
 
 import java.util.Observable;
 import java.util.Random;
+import java.util.Vector;
+
 import com.mycompany.a3.interfaces.ICollider;
 import com.mycompany.a3.interfaces.IGameWorld;
 import com.mycompany.a3.interfaces.IIterator;
@@ -416,8 +418,10 @@ public class GameWorld extends Observable implements IGameWorld{
 				Missile mObj = (Missile)theElements.get();
 				if(getTime() % 10 == 0) {
 					if(mObj.useFuel()) {	//if out of fuel
+						mObj.setCollision(true);
+						/*
 						System.out.println("Missile has run out of fuel");
-						go.remove(mObj); 	// removes the missile
+						go.remove(mObj); 	// removes the missile*/
 					}
 				}
 			}
@@ -453,6 +457,7 @@ public class GameWorld extends Observable implements IGameWorld{
 		}
 		
 		// now lets get rid of crash objects
+		Vector<GameObject> toBeDeleted = new Vector<GameObject>();
 		theElements = go.getIterator();	
 		MissleLauncher ms;
 		while(theElements.hasNext()) {
@@ -461,24 +466,34 @@ public class GameWorld extends Observable implements IGameWorld{
 			if(obj instanceof PlayerShip) {
 				if(obj.getCollision() == true) {
 					ms = ((PlayerShip) obj).getLauncher();
-					go.remove(obj);
-					go.remove(ms);
+					toBeDeleted.add(obj);
+					toBeDeleted.add(ms);
+					//go.remove(obj);
+					//go.remove(ms);
 					lives--;
+					/*
 					this.setChanged();
 					this.notifyObservers(new GameWorldProxy(this));
-					return;
+					return;*/
 				}
 			}
 			if(obj instanceof Asteroid) {
 				if(obj.getCollision() == true) {
 					if(((Asteroid) obj).hitByMissile()) score++;
-					go.remove(obj);
+					toBeDeleted.add(obj);
+					//go.remove(obj);
 				}
 			}
-			else if(obj.getCollision() == true)
-				go.remove(obj);
+			else if(obj.getCollision() == true) {
+				if(obj.getCollision() == true)
+					toBeDeleted.add(obj);
+					//go.remove(obj);
+			}
 		}
-		
+		for(int i = 0; i < toBeDeleted.size(); i++) {
+			GameObject o = toBeDeleted.get(i);
+			go.remove(o);
+		}
 		this.setChanged();
 		this.notifyObservers(new GameWorldProxy(this));
 	}
@@ -587,9 +602,13 @@ public class GameWorld extends Observable implements IGameWorld{
 			while(theElements.hasNext()){
 				if(theElements.getNext() instanceof Missile) {
 					m = (Missile)theElements.get();
-					if(m.isSelected()) {	// checks to see if selected
+					if(!m.isSelected()) {	// checks to see if selected
 						m.setFuel(10);
+						System.out.println("Current Fuel : " + m.getFuelLevel());
 						System.out.println("Missile Has been refueled.");
+						System.out.println("Current Fuel : " + m.getFuelLevel());
+						this.setChanged();
+						this.notifyObservers(new GameWorldProxy(this));
 					}
 				}		
 			}
