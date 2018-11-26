@@ -82,12 +82,14 @@ public class Missile extends Movable implements IDrawable, ICollider, ISelectabl
 			this.setCollision(true);
 			mta.play();
 		}
-		if(otherObject instanceof NonePlayerShip)
+		if(otherObject instanceof NonePlayerShip) 
 			this.setCollision(true);
 		if(otherObject instanceof Missile)
 			this.setCollision(true);
-		//if(otherObject instanceof PlayerShip)
-			//this.setCollision(true);
+		// missile will only hurt if it is comming from NPS
+		if(otherObject instanceof PlayerShip) {
+			if(!this.isPS()) this.setCollision(true);
+		}
 	}
 
 	public Boolean contains(Point pPtrRelPrnt, Point pCmpRelPrnt) {
@@ -109,4 +111,5 @@ public class Missile extends Movable implements IDrawable, ICollider, ISelectabl
 	public void setSelected(Boolean select) {selected = select;}
 	public Boolean isSelected() {return selected;}
 	public void select() {this.selected = false;}
+	private Boolean isPS() { return ps;}
 }

@@ -12,6 +12,7 @@ import java.util.Observable;
 import java.util.Random;
 import java.util.Vector;
 
+import com.codename1.charts.util.ColorUtil;
 import com.mycompany.a3.interfaces.ICollider;
 import com.mycompany.a3.interfaces.IGameWorld;
 import com.mycompany.a3.interfaces.IIterator;
@@ -54,6 +55,11 @@ public class GameWorld extends Observable implements IGameWorld{
 	public GameWorld() { go = new GameCollection();}
 	
 	public void addAsteroid() {
+		if(!getPlay()) {
+			System.out.println("Game must be in play to use this!");
+			return;
+		}
+		
 		asteroid = new Asteroid();
 		asteroid.setSize((rand.nextInt(24) + 6) * 7); 	// 6 - 30
 		asteroid.setSpeed(rand.nextInt(10));		// 0 - 10
@@ -67,6 +73,11 @@ public class GameWorld extends Observable implements IGameWorld{
 	}
 	
 	public void addNonePlayerShip() {
+		if(!getPlay()) {
+			System.out.println("Game must be in play to use this!");
+			return;
+		}
+		
 		int direction = rand.nextInt(359);			// 0 - 359
 		nps = new NonePlayerShip();
 		nps.setSize((rand.nextInt(1) + 1) * 10); 	// 10 or 20
@@ -88,6 +99,11 @@ public class GameWorld extends Observable implements IGameWorld{
 	}
 	
 	public void addSpaceStation() {
+		if(!getPlay()) {
+			System.out.println("Game must be in play to use this!");
+			return;
+		}
+		
 		station = new SpaceStation();
 		station.setLocation(rand.nextInt(WIDTH), rand.nextInt(HEIGHT));
 		station.setColor(0, 255, 0);			// green
@@ -100,6 +116,11 @@ public class GameWorld extends Observable implements IGameWorld{
 	}
 	
 	public void addPlayerShip() {
+		if(!getPlay()) {
+			System.out.println("Game must be in play to use this!");
+			return;
+		}
+		
 		IIterator theElements = go.getIterator();
 		// checks to see if there is a ship already
 		while(theElements.hasNext()) {
@@ -131,6 +152,11 @@ public class GameWorld extends Observable implements IGameWorld{
 	}
 	
 	public void increaseSpeed() {
+		if(!getPlay()) {
+			System.out.println("Game must be in play to use this!");
+			return;
+		}
+		
 		if(ps == null) {
 			System.out.println("No PS exists so we can increment the speed!");
 			return;
@@ -155,6 +181,11 @@ public class GameWorld extends Observable implements IGameWorld{
 	}
 	
 	public void decreaseSpeed() {
+		if(!getPlay()) {
+			System.out.println("Game must be in play to use this!");
+			return;
+		}
+		
 		if(ps == null) {
 			System.out.println("No PS exists so we can't decrement the speed!");
 			return;
@@ -175,6 +206,11 @@ public class GameWorld extends Observable implements IGameWorld{
 	}
 	
 	public void turnLeft() {
+		if(!getPlay()) {
+			System.out.println("Game must be in play to use this!");
+			return;
+		}
+		
 		if(ps != null) { ps.turnLeft();}
 		else {System.out.println("There is no ship");}
 		this.setChanged();
@@ -182,6 +218,11 @@ public class GameWorld extends Observable implements IGameWorld{
 	}
 	
 	public void turnRight() {
+		if(!getPlay()) {
+			System.out.println("Game must be in play to use this!");
+			return;
+		}
+		
 		if(ps != null) { 
 			ps.turnRight();
 			this.setChanged();
@@ -191,6 +232,11 @@ public class GameWorld extends Observable implements IGameWorld{
 	}
 	
 	public void turnMissleLauncherL() {
+		if(!getPlay()) {
+			System.out.println("Game must be in play to use this!");
+			return;
+		}
+		
 		if(psLauncher != null) { 
 			psLauncher.turnLeft();
 			this.setChanged();
@@ -200,6 +246,11 @@ public class GameWorld extends Observable implements IGameWorld{
 	}
 	
 	public void turnMissleLauncherR() {
+		if(!getPlay()) {
+			System.out.println("Game must be in play to use this!");
+			return;
+		}
+		
 		if(psLauncher != null) { 
 			psLauncher.turnRight();
 			this.setChanged();
@@ -209,6 +260,11 @@ public class GameWorld extends Observable implements IGameWorld{
 	}
 	
 	public void fireMissile() {
+		if(!getPlay()) {
+			System.out.println("Game must be in play to use this!");
+			return;
+		}
+		
 		if((ps != null) && (ps.getMissleCount() > 0)) { 
 			shots.play();
 			missile = new Missile();
@@ -220,7 +276,7 @@ public class GameWorld extends Observable implements IGameWorld{
 			missile.setColor(50,50,50); // same as launcher (gray)
 			missile.setFuel(10);
 			missile.setFlag(true); 		// missile is from ps
-			missile.setSize(10);
+			missile.setSize(20);
 			go.add(missile);
 			ps.useMissile(1);
 			this.setChanged();
@@ -231,6 +287,11 @@ public class GameWorld extends Observable implements IGameWorld{
 	}
 	
 	public void launchMissile() {
+		if(!getPlay()) {
+			System.out.println("Game must be in play to use this!");
+			return;
+		}
+		
 		if((nps != null) && (nps.getMissleCount() > 0)) { 
 			missile = new Missile();
 			launcher = nps.getLauncher();
@@ -238,7 +299,8 @@ public class GameWorld extends Observable implements IGameWorld{
 			missile.setSpeed(nps.getSpeed() + 1);
 			missile.setLocation(nps.getXCoordinate(), nps.getYCoordinate()); //missile location is same as ps missile launcher
 			missile.setColor(50,50,50); // same as launcher (gray)
-			missile.setFuel(10000);	// fix this
+			missile.setFuel(10);	// fix this
+			missile.setSize(10);
 			go.add(missile);
 			nps.useMissile(1);
 			this.setChanged();
@@ -249,152 +311,27 @@ public class GameWorld extends Observable implements IGameWorld{
 	}
 	// fix
 	public void jump() {
+		if(!getPlay()) {
+			System.out.println("Game must be in play to use this!");
+			return;
+		}
+		
 		if(ps != null) ps.setLocation((WIDTH / 2), (HEIGHT / 2));
 		else System.out.println("There is no ship");
 		}
 	
 	public void reload() {
+		if(getPlay()) {
+			System.out.println("Game must be pause to use this!");
+			return;
+		}
+		
 		if (ps != null) {
 			if (ps.getMissleCount() == 10) System.out.println("You are already at max capacity");
 			else ps.setMissleCount(MAXMISSILES);
 		}
 		else System.out.println("There is no ship");
-	}
-	
-	public void killAsteroid() {
-		IIterator theElements = go.getIterator();
-		GameObject tempA = null;
-		GameObject tempM = null;
-		while(theElements.hasNext()) {					
-			if(theElements.getNext() instanceof Asteroid) {	tempA = (GameObject)theElements.get();}
-			if(theElements.hasNext())		
-				if(theElements.getNext() instanceof Missile) { tempM = (GameObject)theElements.get();}
-		}
-		
-		if((tempA != null) && (tempM != null)) {
-			go.remove(tempA);
-			go.remove(tempM);
-			this.setChanged();
-			this.notifyObservers(new GameWorldProxy(this));
-			score++;
-		}
-		
-		else if(tempA == null) System.out.println("You have no asteroid in space.");
-		else if(tempM == null) System.out.println("You have no missile to shoot.");	
-	}
-	
-	public void killNPS() {
-		IIterator theElements = go.getIterator();
-		GameObject tempN = null;
-		GameObject tempM = null;
-		while(theElements.hasNext()) {					//iterate to find NPS
-			if(theElements.getNext() instanceof NonePlayerShip) {tempN = (GameObject)theElements.get();}
-			if(theElements.hasNext())		//needs a check again since it already checked for NPS getNext
-				if(theElements.getNext() instanceof Missile) {tempM = (GameObject)theElements.get();}
-		}
-		
-		if((tempN != null) && (tempM != null)) {
-			go.remove(tempN);
-			go.remove(tempM);
-			this.setChanged();
-			this.notifyObservers(new GameWorldProxy(this));
-			score = score + 2;
-		}
-		
-		else if(tempN == null) System.out.println("You have no NPS in space.");
-		else if(tempM == null) System.out.println("You have no missile to shoot.");
-	}
-	
-	public void killPS() {
-		IIterator theElements = go.getIterator();
-		GameObject tempM = null;
-		GameObject tempP = null;
-		while(theElements.hasNext()) {
-			// look for Missile
-			if(theElements.hasNext())
-				if(theElements.getNext() instanceof Missile) {tempM = (GameObject)theElements.get();}
-			// look for PS
-			if(theElements.hasNext())
-				if(theElements.getNext() instanceof PlayerShip) {tempP = (GameObject)theElements.get();}
-		}
-		
-		if((tempP != null) && (tempM != null)) {
-			go.remove(tempP);
-			go.remove(tempM);
-			this.setChanged();
-			this.notifyObservers(new GameWorldProxy(this));
-			lives--;
-			System.out.println("NPS has hit you, you have lost a life");
-		}
-		else System.out.println("You have no PS or Missile in space.");
-	}
-	
-	public void crashAsteroid() {
-		IIterator theElements = go.getIterator();
-		GameObject tempA = null;
-		GameObject tempP = null;
-		while(theElements.hasNext()) {	
-			// look for Asteroid
-			theElements.getNext();
-			if(theElements.get() instanceof Asteroid) {	
-				tempA = (GameObject)theElements.get();
-				}
-			if(theElements.get() instanceof PlayerShip) {
-				tempP = (GameObject)theElements.get();
-				}
-			
-		}
-		if((tempP != null) && (tempA != null)) {
-			go.remove(tempP);
-			go.remove(tempA);
-			this.setChanged();
-			this.notifyObservers(new GameWorldProxy(this));
-			lives--;
-			System.out.println("You have crashed into an asteroid, you have lost a life");
-		}
-		else System.out.println("You have no PS or Asteroid in space.");
-	}
-	
-	public void crashNPS() {
-		IIterator theElements = go.getIterator();
-		GameObject tempN = null;
-		GameObject tempP = null;
-		while(theElements.hasNext()) {	
-			theElements.getNext();
-			if(theElements.get() instanceof NonePlayerShip) {tempN = (GameObject)theElements.get();}
-			if(theElements.get() instanceof PlayerShip) {tempP = (GameObject)theElements.get();}		
-		}
-		if((tempP != null) && (tempN != null)) {
-			go.remove(tempP);
-			go.remove(tempN);
-			this.setChanged();
-			this.notifyObservers(new GameWorldProxy(this));
-			lives--;
-			System.out.println("You have crashed into an NPS, you have lost a life");
-		}
-		else System.out.println("You have no PS or NPS in space.");
-	}
-	
-	// May need some debugging 
-	// if you only have 1 of each it might not work for some reason...
-	public void npsAsteroidCollision() {
-		IIterator theElements = go.getIterator();
-		GameObject tempN = null;
-		GameObject tempA = null;
-		while(theElements.hasNext()) {	
-			theElements.getNext();
-			if(theElements.get() instanceof NonePlayerShip) {tempN = (GameObject)theElements.get();}		
-			if(theElements.get() instanceof Asteroid) { tempA = (GameObject)theElements.get();}	
-		}
-		if((tempA != null) && (tempN != null)) {
-			go.remove(tempA);
-			go.remove(tempN);
-			this.setChanged();
-			this.notifyObservers(new GameWorldProxy(this));
-			System.out.println("NPS & Asteroid have collided");
-		}
-		else System.out.println("You have no Asteroid or NPS in space.");
-	}
+	}	
 	
 	public void tick() { //game clock has ticked
 		time++;
@@ -411,7 +348,6 @@ public class GameWorld extends Observable implements IGameWorld{
 			}
 		}
 		// need to restart iterator
-		// will fail if you fire 2 missiles at the same time ... sometimes
 		theElements = go.getIterator();
 		while(theElements.hasNext()) {					
 			if(theElements.getNext() instanceof Missile) {	
@@ -484,6 +420,14 @@ public class GameWorld extends Observable implements IGameWorld{
 					//go.remove(obj);
 				}
 			}
+			if(obj instanceof NonePlayerShip) {
+				if(obj.getCollision() == true) {
+					if(((NonePlayerShip) obj).hitByMissile()) score = score + 2;
+					toBeDeleted.add(obj);
+					//go.remove(obj);
+				}
+			}
+			
 			else if(obj.getCollision() == true) {
 				if(obj.getCollision() == true)
 					toBeDeleted.add(obj);
@@ -494,12 +438,22 @@ public class GameWorld extends Observable implements IGameWorld{
 			GameObject o = toBeDeleted.get(i);
 			go.remove(o);
 		}
+		this.roll();
 		this.setChanged();
 		this.notifyObservers(new GameWorldProxy(this));
 	}
 	
+	public void roll() {
+		int roll = rand.nextInt(1000);
+		if((roll < 50) && (roll > 49)) this.addNonePlayerShip();
+	}
 	// display objects in the collections
 	public void map() {
+		if(getPlay()) {
+			System.out.println("Game must be paused to use this!");
+			return;
+		}
+		
 		IIterator theElements = go.getIterator();
 		while(theElements.hasNext()) {
 			GameObject o = (GameObject) theElements.getNext();
@@ -581,6 +535,22 @@ public class GameWorld extends Observable implements IGameWorld{
 	
 	public void playTOpause() {
 		Game.pause().setText("Pause");
+		Game.addAsteroid().getUnselectedStyle().setBgColor(ColorUtil.rgb(67, 97, 246));
+		Game.addNPS().getUnselectedStyle().setBgColor(ColorUtil.rgb(67, 97, 246));
+		Game.addSS().getUnselectedStyle().setBgColor(ColorUtil.rgb(67, 97, 246));
+		Game.addPS().getUnselectedStyle().setBgColor(ColorUtil.rgb(67, 97, 246));
+		Game.accelerate().getUnselectedStyle().setBgColor(ColorUtil.rgb(67, 97, 246));
+		Game.decelerate().getUnselectedStyle().setBgColor(ColorUtil.rgb(67, 97, 246));
+		Game.turnLeft().getUnselectedStyle().setBgColor(ColorUtil.rgb(67, 97, 246));
+		Game.turnRight().getUnselectedStyle().setBgColor(ColorUtil.rgb(67, 97, 246));
+		Game.turnMSL().getUnselectedStyle().setBgColor(ColorUtil.rgb(67, 97, 246));
+		Game.turnMSR().getUnselectedStyle().setBgColor(ColorUtil.rgb(67, 97, 246));
+		Game.fireMissile().getUnselectedStyle().setBgColor(ColorUtil.rgb(67, 97, 246));
+		Game.LaunchMissile().getUnselectedStyle().setBgColor(ColorUtil.rgb(67, 97, 246));
+		Game.Jump().getUnselectedStyle().setBgColor(ColorUtil.rgb(0, 0, 0));
+		Game.Reload().getUnselectedStyle().setBgColor(ColorUtil.rgb(0, 0, 0));
+		Game.map().getUnselectedStyle().setBgColor(ColorUtil.rgb(0, 0, 0));
+		Game.refuel().getUnselectedStyle().setBgColor(ColorUtil.rgb(0, 0, 0));
 		if(getSound() == "ON")	toggleSound();	
 		this.setChanged();
 		this.notifyObservers(new GameWorldProxy(this));
@@ -588,6 +558,23 @@ public class GameWorld extends Observable implements IGameWorld{
 	
 	public void pauseTOplay() {
 		Game.pause().setText("Play");
+		Game.addAsteroid().getUnselectedStyle().setBgColor(ColorUtil.rgb(0, 0, 0));
+		Game.addNPS().getUnselectedStyle().setBgColor(ColorUtil.rgb(0, 0, 0));
+		Game.addSS().getUnselectedStyle().setBgColor(ColorUtil.rgb(0, 0, 0));
+		Game.addPS().getUnselectedStyle().setBgColor(ColorUtil.rgb(0, 0, 0));
+		Game.accelerate().getUnselectedStyle().setBgColor(ColorUtil.rgb(0, 0, 0));
+		Game.decelerate().getUnselectedStyle().setBgColor(ColorUtil.rgb(0, 0, 0));
+		Game.turnLeft().getUnselectedStyle().setBgColor(ColorUtil.rgb(0, 0, 0));
+		Game.turnRight().getUnselectedStyle().setBgColor(ColorUtil.rgb(0, 0, 0));
+		Game.turnMSL().getUnselectedStyle().setBgColor(ColorUtil.rgb(0, 0, 0));
+		Game.turnMSR().getUnselectedStyle().setBgColor(ColorUtil.rgb(0, 0, 0));
+		Game.fireMissile().getUnselectedStyle().setBgColor(ColorUtil.rgb(0, 0, 0));
+		Game.LaunchMissile().getUnselectedStyle().setBgColor(ColorUtil.rgb(0, 0, 0));
+		Game.Jump().getUnselectedStyle().setBgColor(ColorUtil.rgb(67, 97, 246));
+		Game.Reload().getUnselectedStyle().setBgColor(ColorUtil.rgb(67, 97, 246));
+		Game.map().getUnselectedStyle().setBgColor(ColorUtil.rgb(67, 97, 246));
+		Game.refuel().getUnselectedStyle().setBgColor(ColorUtil.rgb(67, 97, 246));
+		
 		if(getSound() == "OFF")	toggleSound();	
 		this.setChanged();
 		this.notifyObservers(new GameWorldProxy(this));

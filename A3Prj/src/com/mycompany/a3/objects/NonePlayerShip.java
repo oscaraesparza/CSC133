@@ -16,6 +16,7 @@ import com.mycompany.a3.interfaces.IDrawable;
 
 public class NonePlayerShip extends Ships implements IDrawable, ICollider{
 	private MissleLauncher ms = getLauncher();
+	Boolean hitByM = false;
 	public String toString() {
 		return ("None Player Ship: Location = " + Math.round(getXCoordinate()) + ", " + Math.round(getYCoordinate()) +
 				", color = [" + ColorUtil.red(getColor()) + ", " + ColorUtil.green(getColor()) + ", " + ColorUtil.blue(getColor()) + "]" +
@@ -67,10 +68,13 @@ public class NonePlayerShip extends Ships implements IDrawable, ICollider{
 			this.setCollision(true);
 		if(otherObject instanceof NonePlayerShip)
 			this.setCollision(true);
-		if(otherObject instanceof Missile)
+		if(otherObject instanceof Missile) {
 			this.setCollision(true);
+			hitByM = true;
+		}
 		if(otherObject instanceof PlayerShip)
 			this.setCollision(true);
 		
 	}
+	public Boolean hitByMissile() {return this.hitByM;}
 }

@@ -50,8 +50,24 @@ public class Game extends Form implements Runnable{
 	private int leftGap = 1;
 	private int rightGap = 1;
 	
+	// buttons are private static so we can modify them in GameWorld
 	private static Button pause = new Button("Pause");
-	//PauseCommand myPause = new PauseCommand(gw);
+	private static Button addAsteroid = new Button("Add Asteroid");
+	private static Button addNPS = new Button("Add NPS");
+	private static Button addSS = new Button("Add Space Station");
+	private static Button addPS = new Button("Add Player Ship");
+	private static Button accelerate = new Button("Accelerate");
+	private static Button decelerate = new Button("Decelerate");
+	private static Button turnLeft = new Button("Turn Left");
+	private static Button turnRight = new Button("Turn Right");
+	private static Button turnMSL = new Button("Turn Missile Launcher Left");
+	private static Button turnMSR = new Button("Turn Missile Launcher Right");		
+	private static Button fireMissile = new Button("Fire Missile");
+	private static Button LaunchMissile = new Button("Launch Missile");
+	private static Button Jump = new Button("Jump");
+	private static Button Reload = new Button("Reload");
+	private static Button map = new Button("Map");
+	private static Button refuel = new Button("Refuel");
 	
 	public Game() {		
 		UITimer timer = new UITimer(this);
@@ -103,23 +119,6 @@ public class Game extends Form implements Runnable{
 		//left Container with the BoxLayout positioned on the west 
   		Container leftContainer = new Container();
   		leftContainer.setLayout(new BoxLayout(BoxLayout.Y_AXIS));
-  		
-  		Button addAsteroid = new Button("Add Asteroid");
-  		Button addNPS = new Button("Add NPS");
-  		Button addSS = new Button("Add Space Station");
-  		Button addPS = new Button("Add Player Ship");
-  		Button accelerate = new Button("Accelerate");
-  		Button decelerate = new Button("Decelerate");
-  		Button turnLeft = new Button("Turn Left");
-  		Button turnRight = new Button("Turn Right");
-  		Button turnMSL = new Button("Turn Missile Launcher Left");
-  		Button turnMSR = new Button("Turn Missile Launcher Right");		
-  		Button fireMissile = new Button("Fire Missile");
-  		Button LaunchMissile = new Button("Launch Missile");
-  		Button Jump = new Button("Jump");
-  		Button Reload = new Button("Reload");
-  		Button map = new Button("Map");
-  		Button refuel = new Button("Refuel");
   		
   		// Asteroid Stuff
   		addAsteroid.getAllStyles().setBgTransparency(255);  //255 for not Transparent
@@ -294,4 +293,21 @@ public class Game extends Form implements Runnable{
 			gw.tick();	
 	}
 	public static Button pause() {return pause;}
+	public static Button addAsteroid() {return addAsteroid;}
+	public static Button addNPS() {return addNPS;}
+	public static Button addSS() {return addSS;}
+	public static Button addPS() {return addPS;}
+	public static Button accelerate() {return accelerate;}
+	public static Button decelerate() {return decelerate;}
+	public static Button turnLeft() {return turnLeft;}
+	public static Button turnRight() {return turnRight;}
+	public static Button turnMSL() {return turnMSL;}
+	public static Button turnMSR() {return turnMSR;}		
+	public static Button fireMissile() {return fireMissile;}
+	public static Button LaunchMissile() {return LaunchMissile;}
+	public static Button Jump() {return Jump;}
+	public static Button Reload() {return Reload;}
+	public static Button map() {return map;}
+	public static Button refuel() {return refuel;}
 }
+	
