@@ -99,6 +99,7 @@ public class PointsView extends Container implements Observer{
 		if(lives <= 0) {
 			death.play();
 			Boolean option = Dialog.show("Game Over", "You now floating in oblivion", "This is nice..", "This Sucks");
+			Dialog.show("Final Score", "" + gw.getPlayerScore(), "ok", "cancel"); 
 			if(option) Display.getInstance().exitApplication();
 			else Display.getInstance().exitApplication();
 		}
