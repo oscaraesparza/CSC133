@@ -69,8 +69,11 @@ public class NonePlayerShip extends Ships implements IDrawable, ICollider{
 		if(otherObject instanceof NonePlayerShip)
 			this.setCollision(true);
 		if(otherObject instanceof Missile) {
-			this.setCollision(true);
-			hitByM = true;
+			// won't hurt itself
+			if(((Missile) otherObject).isPS()) {
+				this.setCollision(true);
+				hitByM = true;
+			}
 		}
 		if(otherObject instanceof PlayerShip)
 			this.setCollision(true);

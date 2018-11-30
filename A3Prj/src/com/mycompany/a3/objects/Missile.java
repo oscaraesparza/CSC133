@@ -49,9 +49,11 @@ public class Missile extends Movable implements IDrawable, ICollider, ISelectabl
 		int x = (int)(pCmpRelPrnt.getX() + this.getXCoordinate());
 		int y = (int)(pCmpRelPrnt.getY() + this.getYCoordinate());
 		g.setColor(getColor());
-		g.drawRect(x, y, getSize() + 10, getSize() / 2);
+		g.drawArc(x, y, getSize(), getSize(), 0, 360);
+		//g.drawRect(x, y, getSize() + 10, getSize() / 2);
 		if(isSelected()) {
-			g.fillRect(x, y, getSize() + 10, getSize() / 2);
+			g.fillArc(x, y, getSize(), getSize(), 0, 360);
+			//g.fillRect(x, y, getSize() + 10, getSize() / 2);
 			this.select();
 		}
 	}
@@ -82,8 +84,10 @@ public class Missile extends Movable implements IDrawable, ICollider, ISelectabl
 			this.setCollision(true);
 			mta.play();
 		}
-		if(otherObject instanceof NonePlayerShip) 
-			this.setCollision(true);
+		if(otherObject instanceof NonePlayerShip)
+			// only ps missiles will destroy
+			if(this.isPS()) this.setCollision(true);
+			
 		if(otherObject instanceof Missile)
 			this.setCollision(true);
 		// missile will only hurt if it is comming from NPS
@@ -100,8 +104,14 @@ public class Missile extends Movable implements IDrawable, ICollider, ISelectabl
 		int xLoc = (pCmpRelPrnt.getX())+iShapeX ;
 		int yLoc = (pCmpRelPrnt.getY())+iShapeY ;
 		
-		if((xLoc<=px&&px<=xLoc+getSize())&&(yLoc<=py&&py<=yLoc+getSize())) setContainFlag(false);
-		else setContainFlag(true);
+		if((xLoc <= px && px <= xLoc + getSize()) && (yLoc <= py && py <= yLoc + getSize())) {
+			setContainFlag(false);
+			this.setSelected(true);
+		}
+		else {
+			setContainFlag(true);
+			this.setSelected(false);
+		}
 		
 		return getContainFlag();
 	}
@@ -111,5 +121,6 @@ public class Missile extends Movable implements IDrawable, ICollider, ISelectabl
 	public void setSelected(Boolean select) {selected = select;}
 	public Boolean isSelected() {return selected;}
 	public void select() {this.selected = false;}
-	private Boolean isPS() { return ps;}
+	public Boolean isPS() { return ps;}
+	public void setPS(Boolean p) {this.ps = p;}
 }

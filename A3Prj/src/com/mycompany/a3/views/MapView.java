@@ -101,12 +101,12 @@ public class MapView extends Container implements Observer{
 				
 				if(o instanceof Asteroid) {	
 					if(((Asteroid)o).contains(pPtrRelPrnt, pCmpRelPrnt)) ((Asteroid)o).setSelected(true);
-					else ((Asteroid)o).setSelected(false);
+					//else ((Asteroid)o).setSelected(false);
 				}
 				
 				if(o instanceof Missile) {	
 					if(((Missile)o).contains(pPtrRelPrnt, pCmpRelPrnt)) ((Missile)o).setSelected(true);
-					else ((Missile)o).setSelected(false);
+					//else ((Missile)o).setSelected(false);
 				}
 				repaint();
 			}

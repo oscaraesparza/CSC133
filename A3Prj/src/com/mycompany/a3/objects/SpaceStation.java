@@ -16,10 +16,13 @@ import com.mycompany.a3.interfaces.IDrawable;
 
 public class SpaceStation extends Fixed implements IDrawable, ICollider{
 	private int blinkRate;
+	private Boolean blink = false;
 	
 	public void setBlinkRate(int rate) {this.blinkRate = rate;}
 	
 	public int getBlinkRate() {return blinkRate;}
+	
+	public void setBlink(Boolean b) {this.blink = b;}
 	
 	public String toString() {
 		return ("SpaceStation: Location = " + Math.round(getXCoordinate()) + ", " + Math.round(getYCoordinate()) + 
@@ -34,7 +37,8 @@ public class SpaceStation extends Fixed implements IDrawable, ICollider{
 		int y = (int)(pCmpRelPrnt.getY() + this.getYCoordinate());
 		g.setColor(getColor());
 		g.drawRect(x, y, getSize(), getSize());
-		g.fillRect(x, y, getSize(), getSize());
+		if(this.blink == true) g.fillRect(x, y, getSize(), getSize());	// will blink a lot since time is going fast
+		//this.getBlinkRate();
 	}
 	
 	public Boolean collidesWith(ICollider otherObject) {

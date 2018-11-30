@@ -91,7 +91,8 @@ public class GameWorld extends Observable implements IGameWorld{
 		launcher.setSpeed(rand.nextInt(10));	// 0 - 10
 		launcher.setLocation(rand.nextInt(WIDTH), rand.nextInt(HEIGHT));
 		launcher.setDirection(direction);		// 0 - 359
-		launcher.setColor(255, 255, 100);		// lighter yellow
+		launcher.setColor(0, 255, 100);		// lighter yellow
+		launcher.setSize(15);
 		nps.setMissleLaucher(launcher);
 		go.add(nps);
 		this.setChanged();
@@ -143,7 +144,7 @@ public class GameWorld extends Observable implements IGameWorld{
 		psLauncher.setLocation((WIDTH / 2), (HEIGHT / 2));
 		psLauncher.setDirection(rand.nextInt(359));	// 0 - 359
 		psLauncher.setColor(50, 50, 50);		// grey
-		psLauncher.setSize(10);
+		psLauncher.setSize(20);
 		ps.setMissleLaucher(psLauncher);
 		go.add(psLauncher);
 		go.add(ps);
@@ -277,6 +278,7 @@ public class GameWorld extends Observable implements IGameWorld{
 			missile.setFuel(10);
 			missile.setFlag(true); 		// missile is from ps
 			missile.setSize(20);
+			missile.setPS(true);
 			go.add(missile);
 			ps.useMissile(1);
 			this.setChanged();
@@ -296,11 +298,12 @@ public class GameWorld extends Observable implements IGameWorld{
 			missile = new Missile();
 			launcher = nps.getLauncher();
 			missile.setDirection(launcher.getDirection());
-			missile.setSpeed(nps.getSpeed() + 1);
+			missile.setSpeed(10);
 			missile.setLocation(nps.getXCoordinate(), nps.getYCoordinate()); //missile location is same as ps missile launcher
 			missile.setColor(50,50,50); // same as launcher (gray)
 			missile.setFuel(10);	// fix this
 			missile.setSize(10);
+			missile.setPS(false);
 			go.add(missile);
 			nps.useMissile(1);
 			this.setChanged();
@@ -369,9 +372,12 @@ public class GameWorld extends Observable implements IGameWorld{
 			if(theElements.getNext() instanceof SpaceStation) {	
 				SpaceStation mObj = (SpaceStation)theElements.get();
 				if(mObj.getBlinkRate() != 0) 		//if blink rate = 0, there could be an issue
-					if((time % mObj.getBlinkRate()) == 0) System.out.print("BLINK\n");
+					if((time % mObj.getBlinkRate()) == 0) //System.out.print("BLINK\n");
+						mObj.setBlink(true);
+					else mObj.setBlink(false);
 			}
 		}
+		
 		
 		//collision detection
 		theElements = go.getIterator();
@@ -443,9 +449,16 @@ public class GameWorld extends Observable implements IGameWorld{
 		this.notifyObservers(new GameWorldProxy(this));
 	}
 	
+	// randomly spawns NPS and fires Missile
 	public void roll() {
 		int roll = rand.nextInt(1000);
-		if((roll < 50) && (roll > 49)) this.addNonePlayerShip();
+		if((roll < 50) && (roll > 48)) {
+			this.addNonePlayerShip();
+			// fire missile, want this here so we at least have 1 NPS
+			if((roll < 50) && (roll > 45))
+				this.launchMissile();
+		}
+			
 	}
 	// display objects in the collections
 	public void map() {

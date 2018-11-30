@@ -39,12 +39,12 @@ public class MissleLauncher extends Movable implements ISteerable, IDrawable, IC
 		int dy = (int)(30*(Math.cos((Math.toRadians(this.getDirection())))));
 		g.setColor(getColor());
 		// need to fix so it points in the right direction
-		g.drawLine(x, y, x + dx, y + dy);
+		g.drawLine(x, y, x + dx + 10, y + dy + 10);
 	}
 
 	@Override
 	public Boolean collidesWith(ICollider otherObject) {
-		Boolean result = false; 
+		Boolean result = false;  
 		int thisCenterX = (int)(this.getXCoordinate() + (this.getSize()/2));
 		int thisCenterY = (int)(this.getYCoordinate() + (this.getSize()/2));
 		int otherCenterX = (int)(((GameObject)otherObject).getXCoordinate() + ((GameObject)otherObject).getSize()/2);
